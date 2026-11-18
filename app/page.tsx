@@ -112,11 +112,12 @@ export default function Home() {
                 transition={{ duration: 0.8, delay: 0.2 }}
                 className="relative w-full max-w-md sm:max-w-lg lg:max-w-none aspect-[4/5] group"
               >
-                <div className="relative rounded-xl border border-border/60 overflow-hidden shadow-2xl shadow-black/50">
+                <div className="relative rounded-xl border border-border/60 overflow-hidden shadow-2xl shadow-black/50 h-full">
                   <HeroImage
                     src="/hero.png"
                     alt="KELL Entertainment creative studio"
                     className="w-full h-full object-cover"
+                    priority
                     sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                   />
                   <div className="absolute bottom-4 left-4 z-10 flex items-center gap-2">
