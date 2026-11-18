@@ -120,6 +120,12 @@ export default function Home() {
                     className="w-full h-full object-cover"
                     sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                   />
+                  <div className="absolute bottom-4 left-4 z-10 flex items-center gap-2">
+                    <span className="h-2 w-2 rounded-full bg-accent" />
+                    <Caption className="text-accent font-semibold uppercase tracking-wider">
+                      KELL Entertainment
+                    </Caption>
+                  </div>
                 </div>
               </Reveal>
             </div>
