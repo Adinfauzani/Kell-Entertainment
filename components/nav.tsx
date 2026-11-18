@@ -51,7 +51,7 @@ export function Nav() {
           </Link>
 
           <div className="hidden md:flex items-center gap-3 text-xs font-medium uppercase tracking-wider">
-            {navLinks.map((link) => {
+            {navLinks.filter((link) => link.name !== "Contact").map((link) => {
               const isActive = pathname === link.href
               return (
                 <Link
