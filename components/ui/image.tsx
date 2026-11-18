@@ -16,7 +16,7 @@ export function HeroImage({
   src,
   alt,
   className,
-  fill = false,
+  fill = true,
   priority = false,
   sizes,
 }: HeroImageProps) {
