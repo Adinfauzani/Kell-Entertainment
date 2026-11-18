@@ -1,26 +1,131 @@
 @import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+@custom-variant dark (&:is(.dark *));
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
+  --radius-sm: calc(var(--radius) * 0.6);
+  --radius-md: calc(var(--radius) * 0.8);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) * 1.4);
+  --radius-2xl: calc(var(--radius) * 1.8);
+
+  --color-background: #09090B;
+  --color-foreground: #FAFAFA;
+  --color-card: #09090B;
+  --color-card-foreground: #FAFAFA;
+  --color-popover: #09090B;
+  --color-popover-foreground: #FAFAFA;
+  --color-primary: #C2852E;
+  --color-primary-foreground: #09090B;
+  --color-secondary: #141416;
+  --color-secondary-foreground: #FAFAFA;
+  --color-muted: #141416;
+  --color-muted-foreground: #929292;
+  --color-accent: #C2852E;
+  --color-accent-foreground: #09090B;
+  --color-destructive: #C2852E;
+  --color-destructive-foreground: #FAFAFA;
+  --color-border: #141416;
+  --color-input: #141416;
+  --color-ring: #C2852E;
+  --color-sidebar: #09090B;
+  --color-sidebar-foreground: #FAFAFA;
+
+  --accent: #C2852E;
+  --accent-hover: #DCA046;
+  --accent-highlight: #F8D374;
+  --accent-deep: #6B3C0B;
+  --accent-soft: #FCE6A0;
+
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
+  --font-heading: var(--font-playfair);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+:root {
+  --background: #09090B;
+  --foreground: #FAFAFA;
+}
+
+.dark {
+  --background: #09090B;
+  --foreground: #FAFAFA;
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-sans);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground antialiased;
+  }
+  button:not(:disabled), [role="button"]:not(:disabled) {
+    cursor: pointer;
+  }
+  html {
+    @apply font-sans;
+  }
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-heading tracking-tight;
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+  .gold-gradient {
+    background: linear-gradient(135deg, #C2852E 0%, #DCA046 40%, #F8D374 70%, #C2852E 100%);
+    background-size: 200% 200%;
+    animation: gold-shift 6s ease infinite;
+  }
+  .gold-text {
+    background: linear-gradient(135deg, #F8D374 0%, #C2852E 60%, #6B3C0B 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  .gold-glow {
+    box-shadow: 0 0 24px rgba(194, 133, 46, 0.25);
+  }
+  .border-gold {
+    border-color: rgba(194, 133, 46, 0.45);
+  }
+  .hover-gold\:border {
+    @apply border-transparent;
+    transition: border-color 0.4s ease;
+  }
+  .hover-gold\:border:hover {
+    border-color: #C2852E;
+  }
+}
+
+@keyframes gold-shift {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
+@keyframes fade-in-up {
+  from { opacity: 0; transform: translateY(18px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.animate-fade-in-up {
+  animation: fade-in-up 0.7s ease-out both;
+}
+.animate-fade-in {
+  animation: fade-in 0.6s ease-out both;
 }
