@@ -20,8 +20,10 @@ export default function NotFound() {
           The page you are looking for does not exist. It may have been moved
           or removed.
         </p>
-        <Button asChild>
-          <Link href="/">Return home</Link>
+        <Button variant="gold" asChild className="w-full">
+          <Link href="/" className="block">
+            Return home
+          </Link>
         </Button>
       </div>
     </div>

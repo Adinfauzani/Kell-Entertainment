@@ -42,6 +42,36 @@
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
   --font-heading: var(--font-playfair);
+
+  --typography-display: 4rem var(--font-heading);
+  --typography-heading: 2.25rem var(--font-heading);
+  --typography-subheading: 1.5rem var(--font-heading);
+  --typography-body: 1rem var(--font-sans);
+  --typography-caption: 0.75rem var(--font-sans);
+  --typography-eyebrow: 0.75rem var(--font-sans);
+  --typography-metadata: 0.75rem var(--font-mono);
+
+  --spacing-1: 0.25rem;
+  --spacing-2: 0.5rem;
+  --spacing-3: 0.75rem;
+  --spacing-4: 1rem;
+  --spacing-5: 1.25rem;
+  --spacing-6: 1.5rem;
+  --spacing-8: 2rem;
+  --spacing-10: 2.5rem;
+  --spacing-12: 3rem;
+  --spacing-16: 4rem;
+  --spacing-20: 5rem;
+  --spacing-24: 6rem;
+
+  --motion-duration-fast: 150ms;
+  --motion-duration-base: 300ms;
+  --motion-duration-slow: 500ms;
+  --motion-duration-cinematic: 800ms;
+  --motion-ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --motion-ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
+  --motion-spring: type: "spring", stiffness: 260, damping: 20;
+  --motion-stagger: 80ms;
 }
 
 :root {
@@ -128,4 +158,51 @@ body {
 }
 .animate-fade-in {
   animation: fade-in 0.6s ease-out both;
+}
+
+@layer base {
+  .kell-display {
+    @apply text-[4rem] font-heading font-bold tracking-tight leading-[1.05];
+  }
+  .kell-heading {
+    @apply text-[2.25rem] font-heading font-bold tracking-tight leading-[1.15];
+  }
+  .kell-subheading {
+    @apply text-[1.5rem] font-heading font-semibold tracking-tight leading-[1.2];
+  }
+  .kell-body {
+    @apply text-base font-sans leading-relaxed;
+  }
+  .kell-caption {
+    @apply text-[0.75rem] font-sans text-muted-foreground uppercase tracking-wider;
+  }
+  .kell-eyebrow {
+    @apply text-[0.75rem] font-sans text-accent uppercase tracking-widest font-medium;
+  }
+  .kell-metadata {
+    @apply text-[0.75rem] font-mono text-muted-foreground uppercase tracking-wider;
+  }
+}
+
+@layer utilities {
+  .shimmer {
+    background: linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.05) 40%, transparent 100%);
+    background-size: 200% 100%;
+    animation: shimmer 2s infinite;
+  }
+}
+
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+@keyframes slide-up {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes scale-in {
+  from { opacity: 0; transform: scale(0.95); }
+  to { opacity: 1; transform: scale(1); }
 }

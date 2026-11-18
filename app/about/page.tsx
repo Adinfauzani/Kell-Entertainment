@@ -1,7 +1,19 @@
 import Link from "next/link"
 import { Reveal } from "@/components/reveal"
 import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
+import {
+  Display,
+  Heading,
+  Subheading,
+  Body,
+  Eyebrow,
+  Caption,
+  Metadata,
+} from "@/components/ui/typography"
+import {
+  EditorialImage,
+  ImageLightbox,
+} from "@/components/ui/image"
 import { playIcon } from "@/components/ui/icons"
 
 export const metadata = {
@@ -69,8 +81,8 @@ export default function About() {
       {/* Brand Story */}
       <section className="px-6 py-24 bg-surface/40 border-y border-border/50">
         <div className="max-w-7xl mx-auto">
-          <div className="grid lg:grid-cols-2 gap-16 items-center">
-            <div className="space-y-6">
+          <div className="grid lg:grid-cols-12 gap-12 items-center">
+            <div className="lg:col-span-5 space-y-6">
               <Reveal
                 initial={{ opacity: 0, x: -30 }}
                 animate={{ opacity: 1, x: 0 }}
@@ -103,20 +115,24 @@ export default function About() {
                 point of view that does not chase the moment.
               </Reveal>
             </div>
-            <div
-              className="relative aspect-[3/4] rounded-xl border border-border bg-surface overflow-hidden"
-            >
-              <div className="absolute inset-0 flex items-center justify-center p-8">
-                <div className="flex h-full w-full flex-col items-center justify-center gap-4 rounded-xl border-2 border-accent/30 bg-accent/5 p-8">
-                  <span className="h-12 w-12 rounded-full bg-accent flex items-center justify-center">
-                    <span className="h-5 w-5 text-accent-foreground">{playIcon}</span>
-                  </span>
-                  <span className="text-accent font-semibold uppercase tracking-wider text-xs">
-                    Our Approach
-                  </span>
+            <div className="lg:col-span-7">
+              <div className="relative aspect-[3/4] rounded-xl border border-border bg-surface overflow-hidden">
+                <EditorialImage
+                  src="/images/placeholder.svg"
+                  alt="Our approach at KELL Entertainment"
+                  ratio="3/4"
+                />
+                <div className="absolute inset-0 flex items-center justify-center p-8">
+                  <div className="flex h-full w-full flex-col items-center justify-center gap-4 rounded-xl border-2 border-accent/30 bg-accent/5 p-8">
+                    <span className="h-12 w-12 rounded-full bg-accent flex items-center justify-center">
+                      <span className="h-5 w-5 text-accent-foreground">{playIcon}</span>
+                    </span>
+                    <span className="text-accent font-semibold uppercase tracking-wider text-xs">
+                      Our Approach
+                    </span>
+                  </div>
                 </div>
               </div>
-              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
             </div>
           </div>
         </div>
@@ -133,11 +149,11 @@ export default function About() {
                 transition={{ duration: 0.7 }}
                 className="space-y-4"
               >
-                <h3 className="font-heading text-2xl font-bold tracking-tight">Vision</h3>
-                <p className="text-muted-foreground leading-relaxed">
+                <Heading as="h3">Vision</Heading>
+                <Body className="text-muted-foreground leading-relaxed">
                   To be the quiet standard for premium creative media — work
                   recognized not by volume, but by the care behind it.
-                </p>
+                </Body>
               </Reveal>
               <Reveal
                 initial={{ opacity: 0, y: 30 }}
@@ -145,11 +161,11 @@ export default function About() {
                 transition={{ duration: 0.7, delay: 0.1 }}
                 className="space-y-4"
               >
-                <h3 className="font-heading text-2xl font-bold tracking-tight">Mission</h3>
-                <p className="text-muted-foreground leading-relaxed">
+                <Heading as="h3">Mission</Heading>
+                <Body className="text-muted-foreground leading-relaxed">
                   To produce media, visuals, and experiences that creators and
                   audiences return to — long after the first view.
-                </p>
+                </Body>
               </Reveal>
             </div>
             <div className="space-y-8">
@@ -159,7 +175,7 @@ export default function About() {
                 transition={{ duration: 0.7, delay: 0.2 }}
                 className="space-y-4"
               >
-                <h3 className="font-heading text-2xl font-bold tracking-tight">Core Values</h3>
+                <Heading as="h3">Core Values</Heading>
                 <ul className="space-y-4 text-muted-foreground leading-relaxed">
                   {values.map((value) => (
                     <li key={value.title} className="flex gap-3">
@@ -179,9 +195,9 @@ export default function About() {
       {/* Creative Philosophy */}
       <section className="px-6 py-24 bg-surface/40 border-y border-border/50">
         <div className="max-w-4xl mx-auto">
-          <h2 className="font-heading text-4xl font-bold tracking-tight mb-12 text-center">
+          <Heading as="h2" className="text-4xl font-bold tracking-tight mb-12 text-center">
             Creative Philosophy
-          </h2>
+          </Heading>
           <ul className="max-w-2xl mx-auto space-y-8">
             {philosophy.map((line, i) => (
               <li key={i}>
@@ -203,9 +219,9 @@ export default function About() {
       {/* Brand Identity */}
       <section className="px-6 py-24">
         <div className="max-w-7xl mx-auto">
-          <h2 className="font-heading text-4xl font-bold tracking-tight mb-12 text-center">
+          <Heading as="h2" className="text-4xl font-bold tracking-tight mb-12 text-center">
             Brand Identity
-          </h2>
+          </Heading>
           <div className="grid md:grid-cols-3 gap-6">
             {[
               {
@@ -239,22 +255,21 @@ export default function About() {
                 desc: "Subtle atmospheric highlights.",
               },
             ].map((swatch) => (
-              <Card key={swatch.name} className="p-6">
-                <CardHeader className="p-0 pb-2">
-                  <CardTitle className="text-sm uppercase tracking-wider text-muted-foreground">
-                    {swatch.name}
-                  </CardTitle>
-                </CardHeader>
-                <CardContent className="p-0 pt-2">
-                  <div className="flex items-center gap-3">
-                    <div className="h-8 w-8 rounded-sm" style={{ backgroundColor: swatch.value }} />
-                    <span className="font-mono text-xs text-foreground">{swatch.value}</span>
-                  </div>
-                  <p className="text-xs text-muted-foreground mt-2 leading-relaxed">
-                    {swatch.desc}
-                  </p>
-                </CardContent>
-              </Card>
+              <div
+                key={swatch.name}
+                className="p-6 rounded-xl border border-border bg-surface hover:border-accent/40 transition-colors"
+              >
+                <Caption className="text-muted-foreground uppercase tracking-wider mb-2">
+                  {swatch.name}
+                </Caption>
+                <div className="flex items-center gap-3 mb-2">
+                  <div className="h-8 w-8 rounded-sm border border-border" style={{ backgroundColor: swatch.value }} />
+                  <span className="font-mono text-xs text-foreground">{swatch.value}</span>
+                </div>
+                <Caption className="text-xs text-muted-foreground leading-relaxed">
+                  {swatch.desc}
+                </Caption>
+              </div>
             ))}
           </div>
         </div>
@@ -263,14 +278,14 @@ export default function About() {
       {/* Collaboration CTA */}
       <section className="px-6 py-24">
         <div className="max-w-3xl mx-auto py-20 rounded-2xl border border-accent/30 bg-accent/5 text-center">
-          <h2 className="font-heading text-4xl font-bold tracking-tight mb-4">
+          <Heading as="h2" className="mb-4">
             Let&rsquo;s make something.
-          </h2>
-          <p className="text-muted-foreground mb-10 max-w-md mx-auto leading-relaxed">
+          </Heading>
+          <Body className="text-muted-foreground mb-10 max-w-md mx-auto leading-relaxed">
             We are selective about the projects we take on. Reach out with your
             idea and we will respond when we can give it proper attention.
-          </p>
-          <Button asChild size="lg" className="w-full">
+          </Body>
+          <Button asChild variant="gold" size="lg" className="w-full">
             <Link href="/contact">Contact Us</Link>
           </Button>
         </div>

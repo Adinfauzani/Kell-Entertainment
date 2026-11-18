@@ -5,7 +5,24 @@ import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { Input, Label } from "@/components/ui/input"
 import { Separator } from "@/components/ui/separator"
-import { Mail, MapPin, Send } from "lucide-react"
+import { Select, SelectTrigger, SelectContent, SelectItem, SelectValue } from "@/components/ui/select"
+import { Mail, MapPin } from "lucide-react"
+import {
+  Dialog,
+  DialogTrigger,
+  DialogPortal,
+  DialogClose,
+  DialogBackdrop,
+  DialogViewport,
+  DialogPopup,
+  DialogTitle,
+  DialogDescription,
+} from "@/components/ui/dialog"
+import { useToast } from "@/components/ui/toast"
+import {
+  Heading as TypographyHeading,
+  Body as TypographyBody,
+} from "@/components/ui/typography"
 
 const CATEGORIES = [
   { value: "general", label: "General Inquiry" },
@@ -65,6 +82,7 @@ const infoItems = [
 ]
 
 export default function Contact() {
+  const { toast } = useToast()
   const [formData, setFormData] = React.useState<FormData>({
     fullName: "",
     email: "",
@@ -74,10 +92,7 @@ export default function Contact() {
   })
   const [errors, setErrors] = React.useState<FieldErrors>({})
   const [submitting, setSubmitting] = React.useState(false)
-  const [status, setStatus] = React.useState<"idle" | "success" | "error">(
-    "idle"
-  )
-  const [serverMessage, setServerMessage] = React.useState("")
+  const [dialogOpen, setDialogOpen] = React.useState(false)
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>
@@ -98,56 +113,38 @@ export default function Contact() {
     const fieldErrors = validate(formData)
     if (Object.keys(fieldErrors).length > 0) {
       setErrors(fieldErrors)
-      setStatus("idle")
       return
     }
 
     setSubmitting(true)
-    setStatus("idle")
 
-    // Simulate server round-trip + spam check (honeypot handled server-side)
-    await new Promise((r) => setTimeout(r, 1200))
+    try {
+      const response = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData),
+      })
 
-    const ok = Math.random() > 0.1
-    setSubmitting(false)
-    if (ok) {
-      setStatus("success")
-      setServerMessage("Thank you. Your message has been sent.")
+      if (!response.ok) {
+        throw new Error("Failed to send message")
+      }
+
+      setSubmitting(false)
+      setDialogOpen(true)
+      toast({
+        title: "Message sent",
+        description: "Thank you for reaching out. We will get back to you shortly.",
+        variant: "success",
+      })
       setFormData({ fullName: "", email: "", subject: "", category: "", message: "" })
-    } else {
-      setStatus("error")
-      setServerMessage(
-        "Something went wrong. Please try again or email us directly."
-      )
+    } catch {
+      setSubmitting(false)
+      toast({
+        title: "Error",
+        description: "Something went wrong. Please try again or email us directly.",
+        variant: "destructive",
+      })
     }
-  }
-
-  if (status === "success") {
-    return (
-      <div className="bg-background text-foreground">
-        <section className="px-6 pt-24 pb-32 lg:pt-32 lg:pb-40">
-          <div className="max-w-2xl mx-auto text-center">
-            <div className="flex justify-center mb-6">
-              <div className="rounded-full bg-accent/10 p-3 text-accent">
-                <Send className="h-8 w-8" />
-              </div>
-            </div>
-            <h1 className="font-heading text-4xl font-bold tracking-tight mb-4">
-              Message Sent
-            </h1>
-            <p className="text-muted-foreground mb-10">
-              Thank you for reaching out. We will get back to you shortly.
-            </p>
-            <Link
-              href="/"
-              className="inline-flex items-center gap-2 text-accent font-medium uppercase tracking-wider text-sm hover:underline"
-            >
-              Back to home <span className="text-accent">→</span>
-            </Link>
-          </div>
-        </section>
-      </div>
-    )
   }
 
   return (
@@ -157,13 +154,13 @@ export default function Contact() {
           <div className="grid lg:grid-cols-2 gap-12">
             <div className="space-y-8">
               <div>
-                <h1 className="font-heading text-4xl font-bold tracking-tight">
+                <TypographyHeading as="h1" className="text-4xl font-bold tracking-tight">
                   Contact
-                </h1>
-                <p className="mt-4 text-lg text-muted-foreground leading-relaxed">
+                </TypographyHeading>
+                <TypographyBody className="mt-4 text-lg text-muted-foreground leading-relaxed">
                   Get in touch for bookings, collaborations, media inquiries,
                   or general questions.
-                </p>
+                </TypographyBody>
               </div>
 
               <div className="space-y-6">
@@ -205,10 +202,57 @@ export default function Contact() {
               </div>
             </div>
 
+            <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
+              <DialogTrigger className="hidden">
+                <button data-testid="dialog-trigger" />
+              </DialogTrigger>
+              <DialogPortal>
+                <DialogBackdrop />
+                <DialogViewport>
+                  <DialogPopup>
+                    <DialogClose>
+                      <button
+                        className="p-2 rounded-sm"
+                        aria-label="Close confirmation"
+                        onClick={() => setDialogOpen(false)}
+                      >
+                        <span className="sr-only">Close</span>
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="currentColor"
+                          strokeWidth="2.5"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          className="h-5 w-5"
+                        >
+                          <line x1="18" y1="6" x2="6" y2="18" />
+                          <circle cx="12" cy="12" r="10" />
+                        </svg>
+                      </button>
+                    </DialogClose>
+                    <DialogTitle>Message Sent</DialogTitle>
+                    <DialogDescription>
+                      Thank you for reaching out. We will get back to you shortly.
+                    </DialogDescription>
+                    <Button
+                      onClick={() => setDialogOpen(false)}
+                      variant="gold"
+                      className="w-full mt-6"
+                      asChild
+                    >
+                      <Link href="/">Back to home</Link>
+                    </Button>
+                  </DialogPopup>
+                </DialogViewport>
+              </DialogPortal>
+            </Dialog>
+
             <form onSubmit={handleSubmit} className="space-y-5">
-              <h2 className="font-heading text-2xl font-bold tracking-tight mb-2">
+              <TypographyHeading as="h2" className="text-2xl font-bold tracking-tight mb-2">
                 Send a message
-              </h2>
+              </TypographyHeading>
 
               <div className="grid md:grid-cols-2 gap-5">
                 <div className="space-y-2">
@@ -221,9 +265,9 @@ export default function Contact() {
                     onChange={handleChange}
                     required
                     disabled={submitting}
-                    className={cnInput(
+                    className={
                       errors.fullName && "border-destructive/50 focus-visible:ring-destructive/50"
-                    )}
+                    }
                   />
                   {errors.fullName && (
                     <p className="text-[11px] text-destructive">{errors.fullName}</p>
@@ -240,9 +284,9 @@ export default function Contact() {
                     onChange={handleChange}
                     required
                     disabled={submitting}
-                    className={cnInput(
+                    className={
                       errors.email && "border-destructive/50 focus-visible:ring-destructive/50"
-                    )}
+                    }
                   />
                   {errors.email && (
                     <p className="text-[11px] text-destructive">{errors.email}</p>
@@ -260,9 +304,9 @@ export default function Contact() {
                   onChange={handleChange}
                   required
                   disabled={submitting}
-                  className={cnInput(
+                  className={
                     errors.subject && "border-destructive/50 focus-visible:ring-destructive/50"
-                  )}
+                  }
                 />
                 {errors.subject && (
                   <p className="text-[11px] text-destructive">{errors.subject}</p>
@@ -271,22 +315,32 @@ export default function Contact() {
 
               <div className="space-y-2">
                 <Label htmlFor="category">Inquiry Category</Label>
-                <select
-                  id="category"
-                  name="category"
-                  value={formData.category}
-                  onChange={handleChange}
-                  required
-                  disabled={submitting}
-                  className="block w-full rounded-sm border border-input bg-background px-3 py-2 text-sm shadow-sm transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50"
+                <Select
+                  defaultValue=""
+                  onValueChange={(v: unknown) =>
+                    setFormData((prev) => ({ ...prev, category: String(v) }))
+                  }
                 >
-                  <option value="">Select a category</option>
-                  {CATEGORIES.map((c) => (
-                    <option key={c.value} value={c.value}>
-                      {c.label}
-                    </option>
-                  ))}
-                </select>
+                  <SelectTrigger
+                    id="category"
+                    name="category"
+                    disabled={submitting}
+                    className={
+                      errors.category &&
+                        "border-destructive/50 focus-visible:ring-destructive/50"
+                    }
+                  >
+                    <SelectValue placeholder="Select a category" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="general">General Inquiry</SelectItem>
+                    <SelectItem value="collaboration">
+                      Business Collaboration
+                    </SelectItem>
+                    <SelectItem value="media">Media Inquiry</SelectItem>
+                    <SelectItem value="other">Other</SelectItem>
+                  </SelectContent>
+                </Select>
                 {errors.category && (
                   <p className="text-[11px] text-destructive">{errors.category}</p>
                 )}
@@ -310,17 +364,6 @@ export default function Contact() {
                 )}
               </div>
 
-              {/* Honeypot spam field — hidden from users */}
-              <div className="absolute -top-10 -left-10">
-                <input
-                  name="website"
-                  tabIndex={-1}
-                  autoComplete="off"
-                  aria-hidden="true"
-                  style={{ display: "none" }}
-                />
-              </div>
-
               <div className="pt-2">
                 <Button
                   type="submit"
@@ -332,22 +375,10 @@ export default function Contact() {
                   {submitting ? "Sending…" : "Send Message"}
                 </Button>
               </div>
-
-              {serverMessage && (
-                <p
-                  className={`text-sm ${status === "error" ? "text-destructive" : "text-accent"}`}
-                >
-                  {serverMessage}
-                </p>
-              )}
             </form>
           </div>
         </div>
       </section>
     </div>
   )
-}
-
-function cnInput(extra?: string) {
-  return `block w-full rounded-sm border border-input bg-background px-3 py-2 text-sm shadow-sm transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50 ${extra ?? ""}`
 }

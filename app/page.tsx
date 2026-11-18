@@ -1,7 +1,21 @@
 import Link from "next/link"
 import { Reveal } from "@/components/reveal"
 import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
+import {
+  Display,
+  Heading,
+  Subheading,
+  Body,
+  Eyebrow,
+  Caption,
+  Metadata,
+} from "@/components/ui/typography"
+import {
+  HeroImage,
+  EditorialImage,
+  ProjectPreview,
+  GalleryImage,
+} from "@/components/ui/image"
 import { playIcon } from "@/components/ui/icons"
 import { featuredProjects, mediaItems } from "@/lib/data"
 
@@ -36,9 +50,7 @@ export default function Home() {
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-accent opacity-40"></span>
               <span className="relative inline-flex rounded-full h-8 w-8 bg-accent"></span>
             </span>
-            <span className="text-xs uppercase tracking-widest text-muted-foreground">
-              Now presenting
-            </span>
+            <Eyebrow className="mb-0">Now presenting</Eyebrow>
           </Reveal>
 
           <Reveal
@@ -47,16 +59,15 @@ export default function Home() {
             transition={{ duration: 0.8, delay: 0.2 }}
             className="max-w-2xl"
           >
-            <h1 className="font-heading text-6xl font-bold tracking-tight leading-[1.05] text-foreground mb-6 text-balance">
-              KELL{" "}
-              <span className="gold-text">Entertainment</span>
-            </h1>
-            <p className="text-lg text-muted-foreground leading-relaxed mb-10 max-w-lg">
+            <Display className="mb-6 text-balance">
+              KELL <span className="gold-text">Entertainment</span>
+            </Display>
+            <Body className="text-lg leading-relaxed mb-10 max-w-lg">
               Creative media, entertainment production, visual storytelling,
               and digital experiences built for the modern audience.
-            </p>
+            </Body>
             <div className="flex flex-col sm:flex-row gap-4">
-              <Button asChild size="lg">
+              <Button asChild variant="gold" size="lg">
                 <Link href="/gallery" className="w-full">
                   Explore Our Work
                 </Link>
@@ -82,15 +93,15 @@ export default function Home() {
                 transition={{ duration: 0.7 }}
                 className="space-y-6"
               >
-                <h2 className="font-heading text-4xl font-bold tracking-tight">
+                <Heading as="h2" className="mb-0">
                   About KELL
-                </h2>
-                <p className="text-muted-foreground leading-relaxed">
+                </Heading>
+                <Body className="leading-relaxed">
                   KELL Entertainment is an independent creative studio focused on
                   media production, visual storytelling, and digital experiences.
                   We work with artists, brands, and creators to produce work that
                   feels intentional and lasting.
-                </p>
+                </Body>
                 <Link
                   href="/about"
                   className="inline-flex items-center gap-2 text-accent font-medium uppercase tracking-wider text-sm hover:underline"
@@ -101,6 +112,12 @@ export default function Home() {
             </div>
             <div className="lg:col-span-7">
               <div className="relative aspect-[4/3] rounded-xl border border-border bg-surface overflow-hidden group">
+                <EditorialImage
+                  src="/images/placeholder.svg"
+                  alt="Featured work from KELL Entertainment"
+                  ratio="4/3"
+                  lazyLoading={false}
+                />
                 <div className="absolute inset-0 flex items-center justify-center p-8">
                   <div className="flex h-full w-full flex-col items-center justify-center gap-4 rounded-xl border-2 border-accent/30 bg-accent/5 p-8">
                     <span className="h-12 w-12 rounded-full bg-accent flex items-center justify-center">
@@ -111,7 +128,6 @@ export default function Home() {
                     </span>
                   </div>
                 </div>
-                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
               </div>
             </div>
           </div>
@@ -123,43 +139,23 @@ export default function Home() {
         <div className="max-w-7xl mx-auto">
           <div className="flex flex-col lg:flex-row gap-8 items-start lg:items-center justify-between mb-12">
             <div>
-              <h2 className="font-heading text-4xl font-bold tracking-tight">
-                Featured Projects
-              </h2>
-              <p className="text-muted-foreground">
+              <Heading as="h2">Featured Projects</Heading>
+              <Body className="text-muted-foreground">
                 Selected creative work from the KELL catalog.
-              </p>
+              </Body>
             </div>
           </div>
           <div className="grid md:grid-cols-3 gap-6">
             {featuredProjects.map((project) => (
-              <Card key={project.id} className="group hover:border-accent/60">
-                <div className="relative aspect-[3/4] rounded-lg border border-border bg-surface overflow-hidden mb-4 group-hover:border-accent/40">
-                  <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-black/60">
-                    <span className="flex h-10 w-10 items-center justify-center rounded-full bg-accent text-accent-foreground shadow-lg">
-                      <span className="h-4 w-4">{playIcon}</span>
-                    </span>
-                  </div>
-                  <img
-                    src={project.cover}
-                    alt={project.title}
-                    className="w-full h-full object-cover"
-                    loading="lazy"
-                    decoding="async"
-                  />
-                </div>
-                <CardHeader className="p-0 pt-0 pb-2">
-                  <CardTitle className="text-lg">{project.title}</CardTitle>
-                </CardHeader>
-                <CardContent className="p-0 pt-2">
-                  <p className="text-xs text-muted-foreground uppercase tracking-wider">
-                    {project.category}
-                  </p>
-                  <p className="text-sm text-foreground leading-relaxed mt-1">
-                    {project.excerpt}
-                  </p>
-                </CardContent>
-              </Card>
+              <ProjectPreview
+                key={project.id}
+                src={project.cover}
+                alt={project.title}
+                title={project.title}
+                category={project.category}
+                href={`/gallery`}
+                className="group"
+              />
             ))}
           </div>
         </div>
@@ -170,12 +166,10 @@ export default function Home() {
         <div className="max-w-7xl mx-auto">
           <div className="flex items-center justify-between mb-12">
             <div>
-              <h2 className="font-heading text-4xl font-bold tracking-tight">
-                Latest Media
-              </h2>
-              <p className="text-muted-foreground">
+              <Heading as="h2">Latest Media</Heading>
+              <Body className="text-muted-foreground">
                 Recent publications and releases.
-              </p>
+              </Body>
             </div>
             <Link
               href="/media"
@@ -189,34 +183,13 @@ export default function Home() {
               .filter((m) => m.featured)
               .slice(0, 3)
               .map((item) => (
-                <Card key={item.slug} className="group">
-                  <div className="relative aspect-[3/4] rounded-lg border border-border bg-surface overflow-hidden mb-4">
-                    <img
-                      src={item.cover}
-                      alt={item.title}
-                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                      loading="lazy"
-                      decoding="async"
-                    />
-                  </div>
-                  <CardHeader className="p-0 pt-0 pb-2">
-                    <CardTitle className="text-lg">{item.title}</CardTitle>
-                  </CardHeader>
-                  <CardContent className="p-0 pt-2">
-                    <p className="text-xs text-muted-foreground uppercase tracking-wider mb-1">
-                      {item.category}
-                    </p>
-                    <p className="text-sm text-muted-foreground leading-relaxed">
-                      {item.excerpt}
-                    </p>
-                  </CardContent>
-                  <CardFooter>
-                    <div className="flex items-center justify-between text-xs text-muted-foreground">
-                      <span>{item.date}</span>
-                      <span>{item.author}</span>
-                    </div>
-                  </CardFooter>
-                </Card>
+                <GalleryImage
+                  key={item.slug}
+                  src={item.cover}
+                  alt={item.title}
+                  caption={item.title}
+                  category={item.category}
+                />
               ))}
           </div>
         </div>
@@ -225,13 +198,13 @@ export default function Home() {
       {/* CTA */}
       <section className="px-6 py-24">
         <div className="max-w-3xl mx-auto py-20 rounded-2xl border border-accent/30 bg-accent/5 text-center">
-          <h2 className="font-heading text-4xl font-bold tracking-tight mb-4">
+          <Heading as="h2" className="mb-4">
             Ready to collaborate?
-          </h2>
-          <p className="text-muted-foreground mb-10 max-w-md mx-auto leading-relaxed">
+          </Heading>
+          <Body className="text-muted-foreground mb-10 max-w-md mx-auto leading-relaxed">
             We are selective about the projects we take on. Tell us about yours.
-          </p>
-          <Button asChild size="lg" className="w-full">
+          </Body>
+          <Button asChild variant="gold" size="lg" className="w-full">
             <Link href="/contact">Start a Conversation</Link>
           </Button>
         </div>

@@ -1,6 +1,7 @@
 import Link from "next/link"
-import { GalleryGrid } from "@/components/gallery-grid"
 import { galleryItems, galleryCategories } from "@/lib/data"
+import { Heading, Body, Caption } from "@/components/ui/typography"
+import { GalleryClient } from "@/components/gallery-client"
 
 export const metadata = {
   title: "Gallery",
@@ -25,17 +26,15 @@ export default function GalleryPage({ searchParams }: PageProps) {
         <div className="max-w-7xl mx-auto">
           <div className="flex flex-col lg:flex-row gap-8 items-start lg:items-center justify-between mb-16">
             <div>
-              <h1 className="font-heading text-5xl font-bold tracking-tight leading-[1.1] mb-4">
-                Gallery
-              </h1>
-              <p className="text-lg text-muted-foreground">
+              <Heading as="h1">Gallery</Heading>
+              <Body className="text-lg text-muted-foreground">
                 A visual record of projects, events, and moments from KELL
                 Entertainment.
-              </p>
+              </Body>
             </div>
           </div>
 
-          <div className="flex flex-wrap gap-3 mb-12">
+          <div className="flex flex-wrap gap-2 mb-12">
             <Link
               href={category === "all" ? "/gallery" : "/gallery?category=all"}
               className="rounded-sm border px-3 py-1 text-xs font-medium uppercase tracking-wider transition-colors"
@@ -60,7 +59,7 @@ export default function GalleryPage({ searchParams }: PageProps) {
             })}
           </div>
 
-          <GalleryGrid items={filtered} />
+          <GalleryClient items={filtered} />
         </div>
       </section>
     </div>
