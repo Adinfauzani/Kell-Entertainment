@@ -115,7 +115,7 @@ export default function Home() {
                 <div className="absolute -inset-1 bg-accent/10 blur-[60px] rounded-2xl group-hover:bg-accent/15 transition-colors duration-500" />
                 <div className="relative rounded-xl border border-accent/20 overflow-hidden shadow-2xl shadow-black/40">
                   <HeroImage
-                    src="/images/placeholder.svg"
+                    src="/hero.png"
                     alt="KELL Entertainment creative studio"
                     className="w-full h-full object-cover"
                     sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
