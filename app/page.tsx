@@ -1,4 +1,5 @@
 import Link from "next/link"
+import { cn } from "@/lib/utils"
 import { Reveal } from "@/components/reveal"
 import {
   Display,
@@ -16,7 +17,7 @@ import {
   GalleryImage,
 } from "@/components/ui/image"
 import { playIcon } from "@/components/ui/icons"
-import { featuredProjects, mediaItems } from "@/lib/data"
+import { featuredProjects, mediaItems, navLinks } from "@/lib/data"
 
 export const metadata = {
   title: "Home",
@@ -28,58 +29,101 @@ export default function Home() {
   return (
     <div className="bg-background text-foreground">
       {/* Hero */}
-      <section className="relative px-6 pt-20 pb-32 lg:pt-36 lg:pb-48 overflow-hidden">
+      <section className="relative px-6 pt-20 pb-32 lg:pt-48 lg:pb-64 overflow-hidden">
         <div className="absolute inset-0 -z-10">
           <div
-            className="w-[600px] h-[600px] rounded-full bg-accent/10 blur-[100px] -top-20 -left-20 animate-[pulse_8s_ease-in-out_infinite]"
+            className="w-[700px] h-[700px] rounded-full bg-accent/10 blur-[120px] -top-24 -left-24 animate-[pulse_8s_ease-in-out_infinite]"
           />
           <div
-            className="w-[500px] h-[500px] rounded-full bg-accent/5 blur-[80px] -bottom-10 -right-10 animate-[pulse_10s_ease-in-out_infinite_reverse]"
+            className="w-[600px] h-[600px] rounded-full bg-accent/5 blur-[100px] -bottom-20 -right-20 animate-[pulse_10s_ease-in-out_infinite_reverse]"
           />
         </div>
 
         <div className="max-w-7xl mx-auto">
-          <Reveal
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            className="flex items-center gap-2 mb-6"
-          >
-            <span className="relative flex h-8 w-8">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-accent opacity-40"></span>
-              <span className="relative inline-flex rounded-full h-8 w-8 bg-accent"></span>
-            </span>
-            <Eyebrow className="mb-0">Now presenting</Eyebrow>
-          </Reveal>
+          <div className="grid lg:grid-cols-12 gap-12 lg:gap-16">
+            <div
+              className={cn(
+                "lg:col-span-5 xl:col-span-6 flex flex-col justify-center",
+                "order-2 lg:order-1"
+              )}
+            >
+              <Reveal
+                initial={{ opacity: 0, y: 30 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8 }}
+                className="flex items-center gap-2 mb-6"
+              >
+                <span className="relative flex h-8 w-8">
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-accent opacity-40"></span>
+                  <span className="relative inline-flex rounded-full h-8 w-8 bg-accent"></span>
+                </span>
+                <Eyebrow className="mb-0">Now presenting</Eyebrow>
+              </Reveal>
 
-          <Reveal
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-            className="max-w-2xl"
-          >
-            <Display className="mb-6 text-balance">
-              KELL <span className="gold-text">Entertainment</span>
-            </Display>
-            <Body className="text-lg leading-relaxed mb-10 max-w-lg">
-              Creative media, entertainment production, visual storytelling,
-              and digital experiences built for the modern audience.
-            </Body>
-            <div className="flex flex-col sm:flex-row gap-4">
-              <Link
-                href="/gallery"
-                className="inline-flex shrink-0 items-center justify-center rounded-sm border bg-clip-padding text-xs/relaxed font-medium whitespace-nowrap transition-all outline-none select-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 uppercase tracking-wider border-transparent bg-accent text-accent-foreground hover:bg-accent-hover hover:shadow-lg hover:shadow-accent/30 active:bg-accent-deep h-11 px-6 text-base w-full"
+              <Reveal
+                initial={{ opacity: 0, y: 30 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, delay: 0.15 }}
+                className="max-w-lg"
               >
-                Explore Our Work
-              </Link>
-              <Link
-                href="/contact"
-                className="inline-flex shrink-0 items-center justify-center rounded-sm border bg-clip-padding text-xs/relaxed font-medium whitespace-nowrap transition-all outline-none select-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 uppercase tracking-wider border-border bg-secondary text-muted-foreground hover:bg-accent/10 hover:text-accent hover:border-accent h-11 px-6 text-base w-full"
+                <Display className="mb-6 text-balance">
+                  KELL <span className="gold-text">Entertainment</span>
+                </Display>
+                <Body className="text-lg leading-relaxed mb-10 max-w-lg text-muted-foreground">
+                  Creative media, entertainment production, visual storytelling,
+                  and digital experiences built for the modern audience.
+                </Body>
+                <div className="flex flex-col sm:flex-row gap-4">
+                  <Link
+                    href="/gallery"
+                    className="inline-flex shrink-0 items-center justify-center rounded-sm border bg-clip-padding text-xs/relaxed font-medium whitespace-nowrap transition-all outline-none select-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 uppercase tracking-wider border-transparent bg-accent text-accent-foreground hover:bg-accent-hover hover:shadow-lg hover:shadow-accent/30 active:bg-accent-deep h-11 px-6 text-base w-full sm:w-auto"
+                  >
+                    Explore Our Work
+                  </Link>
+                  <Link
+                    href="/contact"
+                    className="inline-flex shrink-0 items-center justify-center rounded-sm border bg-clip-padding text-xs/relaxed font-medium whitespace-nowrap transition-all outline-none select-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 uppercase tracking-wider border-border bg-secondary text-muted-foreground hover:bg-accent/10 hover:text-accent hover:border-accent h-11 px-6 text-base w-full sm:w-auto"
+                  >
+                    Contact Us
+                  </Link>
+                </div>
+              </Reveal>
+
+              <Reveal
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, delay: 0.3 }}
+                className="mt-12 flex items-center gap-3 text-xs font-medium uppercase tracking-wider"
               >
-                Contact Us
-              </Link>
+                <span className="h-px w-4 bg-border" />
+                <Metadata as="span">KELL Entertainment &middot; 2026</Metadata>
+              </Reveal>
             </div>
-          </Reveal>
+
+            <div
+              className={cn(
+                "lg:col-span-7 xl:col-span-6 flex flex-col items-center justify-center",
+                "order-1 lg:order-2"
+              )}
+            >
+              <Reveal
+                initial={{ opacity: 0, y: 40, scale: 0.95 }}
+                animate={{ opacity: 1, y: 0, scale: 1 }}
+                transition={{ duration: 0.8, delay: 0.2 }}
+                className="relative w-full max-w-md sm:max-w-lg lg:max-w-none aspect-[4/5] group"
+              >
+                <div className="absolute -inset-1 bg-accent/10 blur-[60px] rounded-2xl group-hover:bg-accent/15 transition-colors duration-500" />
+                <div className="relative rounded-xl border border-accent/20 overflow-hidden shadow-2xl shadow-black/40">
+                  <HeroImage
+                    src="/images/placeholder.svg"
+                    alt="KELL Entertainment creative studio"
+                    className="w-full h-full object-cover"
+                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                  />
+                </div>
+              </Reveal>
+            </div>
+          </div>
         </div>
       </section>
 

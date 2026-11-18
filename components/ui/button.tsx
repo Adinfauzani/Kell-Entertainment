@@ -38,7 +38,6 @@ type ButtonSize = "default" | "sm" | "lg" | "icon"
 
 type RadixVariant = "outline" | "ghost" | "classic" | "solid" | "soft" | "surface"
 type RadixSize = "1" | "2" | "3" | "4"
-type RadixColorScheme = "gold" | undefined
 
 const variantMap: Record<ButtonVariant, RadixVariant> = {
   gold: "solid",
@@ -46,14 +45,6 @@ const variantMap: Record<ButtonVariant, RadixVariant> = {
   ghost: "ghost",
   subtle: "soft",
   editorial: "solid",
-}
-
-const colorSchemeMap: Record<ButtonVariant, RadixColorScheme> = {
-  gold: "gold",
-  "gold-outline": undefined,
-  ghost: undefined,
-  subtle: undefined,
-  editorial: "gold",
 }
 
 const sizeMap: Record<ButtonSize, RadixSize> = {
@@ -93,7 +84,6 @@ function Button({
     <ThemesButton
       variant={variantMap[variant]}
       size={sizeMap[size]}
-      colorScheme={colorSchemeMap[variant]}
       className={classes}
       {...props}
     >
