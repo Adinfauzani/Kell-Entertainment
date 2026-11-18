@@ -112,8 +112,7 @@ export default function Home() {
                 transition={{ duration: 0.8, delay: 0.2 }}
                 className="relative w-full max-w-md sm:max-w-lg lg:max-w-none aspect-[4/5] group"
               >
-                <div className="absolute -inset-1 bg-accent/10 blur-[60px] rounded-2xl group-hover:bg-accent/15 transition-colors duration-500" />
-                <div className="relative rounded-xl border border-accent/20 overflow-hidden shadow-2xl shadow-black/40">
+                <div className="relative rounded-xl border border-border/60 overflow-hidden shadow-2xl shadow-black/50">
                   <HeroImage
                     src="/hero.png"
                     alt="KELL Entertainment creative studio"
