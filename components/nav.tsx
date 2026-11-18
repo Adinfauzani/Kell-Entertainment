@@ -68,15 +68,15 @@ export function Nav() {
                 </Link>
               )
             })}
+          </div>
+
+          <div className="flex items-center gap-2">
             <Link
               href="/contact"
               className="relative px-3 py-1.5 rounded-full border border-accent bg-accent text-accent-foreground text-xs font-semibold uppercase tracking-wider transition-colors hover:bg-accent-hover hover:text-accent-foreground shadow-lg shadow-accent/25"
             >
               <Mail className="h-3 w-3 mr-1.5" /> Contact
             </Link>
-          </div>
-
-          <div className="flex items-center gap-2">
             <DrawerTrigger
               className="md:hidden p-1.5 rounded-full text-muted-foreground hover:text-accent hover:bg-accent/10 transition-colors"
               aria-label="Open menu"
