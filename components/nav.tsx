@@ -48,6 +48,7 @@ export function Nav() {
             aria-label="KELL Entertainment"
           >
             {logoMark}
+            <span className="text-muted-foreground font-medium tracking-wide">Entertainment</span>
           </Link>
 
           <div className="hidden md:flex items-center gap-3 text-xs font-medium uppercase tracking-wider">
