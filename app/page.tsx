@@ -116,7 +116,7 @@ export default function Home() {
                   <HeroImage
                     src="/hero.png"
                     alt="KELL Entertainment creative studio"
-                    className="w-full h-full object-cover"
+                    className="w-full h-full object-contain bg-background"
                     priority
                     sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                   />
