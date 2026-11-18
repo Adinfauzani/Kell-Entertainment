@@ -1,13 +1,13 @@
 "use client"
 
 import * as React from "react"
-import { Tabs as TabsPrimitive } from "@base-ui/react/tabs"
+import * as TabsPrimitive from "@radix-ui/themes"
 import { cn } from "@/lib/utils"
 
-const TabsRoot = TabsPrimitive.Root
-const TabsTabPrimitive = TabsPrimitive.Tab
-const TabsPanelPrimitive = TabsPrimitive.Panel
-const TabsListPrimitive = TabsPrimitive.List
+const TabsRoot = TabsPrimitive.Tabs.Root
+const TabsListPrimitive = TabsPrimitive.Tabs.List
+const TabsTriggerPrimitive = TabsPrimitive.Tabs.Trigger
+const TabsContentPrimitive = TabsPrimitive.Tabs.Content
 
 interface TabsProps extends React.ComponentProps<typeof TabsRoot> {
   children?: React.ReactNode
@@ -19,12 +19,12 @@ interface TabsListProps extends React.ComponentProps<typeof TabsListPrimitive> {
   className?: string
 }
 
-interface TabsTabProps extends React.ComponentProps<typeof TabsTabPrimitive> {
+interface TabsTriggerProps extends React.ComponentProps<typeof TabsTriggerPrimitive> {
   children?: React.ReactNode
   className?: string
 }
 
-interface TabsPanelProps extends React.ComponentProps<typeof TabsPanelPrimitive> {
+interface TabsContentProps extends React.ComponentProps<typeof TabsContentPrimitive> {
   children?: React.ReactNode
   className?: string
 }
@@ -38,10 +38,7 @@ function TabsListComponent({ className, children, ...props }: TabsListProps) {
   return (
     <TabsListPrimitive
       {...props}
-      className={cn(
-        "inline-flex flex-wrap gap-2 -mx-1",
-        className
-      )}
+      className={cn("inline-flex flex-wrap gap-2 -mx-1", className)}
     >
       {children}
     </TabsListPrimitive>
@@ -49,9 +46,9 @@ function TabsListComponent({ className, children, ...props }: TabsListProps) {
 }
 TabsListComponent.displayName = "TabsList"
 
-function TabsTabComponent({ className, children, ...props }: TabsTabProps) {
+function TabsTriggerComponent({ className, children, ...props }: TabsTriggerProps) {
   return (
-    <TabsTabPrimitive
+    <TabsTriggerPrimitive
       {...props}
       className={cn(
         "flex shrink-0 cursor-pointer items-center justify-center rounded-sm border px-4 py-2 text-sm transition-colors data-[state=active]:border-accent data-[state=active]:bg-accent data-[state=active]:text-accent-foreground",
@@ -59,14 +56,14 @@ function TabsTabComponent({ className, children, ...props }: TabsTabProps) {
       )}
     >
       {children}
-    </TabsTabPrimitive>
+    </TabsTriggerPrimitive>
   )
 }
-TabsTabComponent.displayName = "TabsTab"
+TabsTriggerComponent.displayName = "TabsTrigger"
 
-function TabsPanelComponent({ className, children, ...props }: TabsPanelProps) {
+function TabsContentComponent({ className, children, ...props }: TabsContentProps) {
   return (
-    <TabsPanelPrimitive
+    <TabsContentPrimitive
       {...props}
       className={cn(
         "mt-4 ring-offset-background focus-visible:outline-none data-[state=active]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0",
@@ -74,14 +71,14 @@ function TabsPanelComponent({ className, children, ...props }: TabsPanelProps) {
       )}
     >
       {children}
-    </TabsPanelPrimitive>
+    </TabsContentPrimitive>
   )
 }
-TabsPanelComponent.displayName = "TabsPanel"
+TabsContentComponent.displayName = "TabsContent"
 
 export {
   Tabs,
   TabsListComponent as TabsList,
-  TabsTabComponent as TabsTrigger,
-  TabsPanelComponent as TabsContent,
+  TabsTriggerComponent as TabsTrigger,
+  TabsContentComponent as TabsContent,
 }

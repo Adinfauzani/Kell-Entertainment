@@ -45,6 +45,8 @@ interface EditorialImageProps {
   className?: string
   ratio?: "3/4" | "4/3" | "16/9" | "1/1"
   lazyLoading?: boolean
+  width?: number
+  height?: number
 }
 
 export function EditorialImage({
@@ -53,6 +55,8 @@ export function EditorialImage({
   className,
   ratio = "3/4",
   lazyLoading = true,
+  width,
+  height,
 }: EditorialImageProps) {
   const aspectRatios: Record<string, string> = {
     "3/4": "aspect-[3/4]",
@@ -72,6 +76,9 @@ export function EditorialImage({
       <Image
         src={src}
         alt={alt}
+        fill={!width && !height}
+        width={width}
+        height={height}
         className="absolute inset-0 w-full h-full object-cover"
         loading={lazyLoading ? "lazy" : "eager"}
         decoding="async"
@@ -105,6 +112,7 @@ export function ProjectPreview({
         <Image
           src={src}
           alt={alt}
+          fill
           className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)]"
           loading="lazy"
           decoding="async"
@@ -158,6 +166,7 @@ export function GalleryImage({
         <Image
           src={src}
           alt={alt}
+          fill
           className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)]"
           loading="lazy"
           decoding="async"
@@ -220,6 +229,7 @@ export function ImageLightbox({
       <Image
         src={src}
         alt={alt}
+        fill
         className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
         loading="lazy"
         decoding="async"

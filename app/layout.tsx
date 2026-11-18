@@ -1,6 +1,7 @@
 import type { Metadata } from "next"
 import { Geist, Geist_Mono } from "next/font/google"
 import { Playfair_Display } from "next/font/google"
+import { Theme } from "@radix-ui/themes"
 import "./globals.css"
 import { Nav } from "@/components/nav"
 import { Footer } from "@/components/footer"
@@ -48,9 +49,11 @@ export default function RootLayout({
       className={`${playfair.variable} ${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col">
-        <Nav />
-        <main className="flex-1">{children}</main>
-        <Footer />
+        <Theme accentColor="gold" grayColor="slate" radius="medium" scaling="100%" appearance="dark">
+          <Nav />
+          <main className="flex-1">{children}</main>
+          <Footer />
+        </Theme>
       </body>
     </html>
   )

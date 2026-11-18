@@ -5,16 +5,13 @@ import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { Input, Label } from "@/components/ui/input"
 import { Separator } from "@/components/ui/separator"
-import { Select, SelectTrigger, SelectContent, SelectItem, SelectValue } from "@/components/ui/select"
+import { Select, SelectTrigger, SelectContent, SelectItem } from "@/components/ui/select"
 import { Mail, MapPin } from "lucide-react"
 import {
   Dialog,
   DialogTrigger,
-  DialogPortal,
   DialogClose,
-  DialogBackdrop,
-  DialogViewport,
-  DialogPopup,
+  DialogContent,
   DialogTitle,
   DialogDescription,
 } from "@/components/ui/dialog"
@@ -203,50 +200,41 @@ export default function Contact() {
             </div>
 
             <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
-              <DialogTrigger className="hidden">
-                <button data-testid="dialog-trigger" />
-              </DialogTrigger>
-              <DialogPortal>
-                <DialogBackdrop />
-                <DialogViewport>
-                  <DialogPopup>
-                    <DialogClose>
-                      <button
-                        className="p-2 rounded-sm"
-                        aria-label="Close confirmation"
-                        onClick={() => setDialogOpen(false)}
-                      >
-                        <span className="sr-only">Close</span>
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          viewBox="0 0 24 24"
-                          fill="none"
-                          stroke="currentColor"
-                          strokeWidth="2.5"
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          className="h-5 w-5"
-                        >
-                          <line x1="18" y1="6" x2="6" y2="18" />
-                          <circle cx="12" cy="12" r="10" />
-                        </svg>
-                      </button>
-                    </DialogClose>
-                    <DialogTitle>Message Sent</DialogTitle>
-                    <DialogDescription>
-                      Thank you for reaching out. We will get back to you shortly.
-                    </DialogDescription>
-                    <Button
-                      onClick={() => setDialogOpen(false)}
-                      variant="gold"
-                      className="w-full mt-6"
-                      asChild
+              <DialogContent>
+                <DialogClose>
+                  <button
+                    className="p-2 rounded-sm"
+                    aria-label="Close confirmation"
+                    onClick={() => setDialogOpen(false)}
+                  >
+                    <span className="sr-only">Close</span>
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2.5"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      className="h-5 w-5"
                     >
-                      <Link href="/">Back to home</Link>
-                    </Button>
-                  </DialogPopup>
-                </DialogViewport>
-              </DialogPortal>
+                      <line x1="18" y1="6" x2="6" y2="18" />
+                      <circle cx="12" cy="12" r="10" />
+                    </svg>
+                  </button>
+                </DialogClose>
+                <DialogTitle>Message Sent</DialogTitle>
+                <DialogDescription>
+                  Thank you for reaching out. We will get back to you shortly.
+                </DialogDescription>
+                <Link
+                  href="/"
+                  onClick={() => setDialogOpen(false)}
+                  className="inline-flex shrink-0 items-center justify-center rounded-sm border bg-clip-padding text-xs/relaxed font-medium whitespace-nowrap transition-all outline-none select-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 uppercase tracking-wider border-transparent bg-accent text-accent-foreground hover:bg-accent-hover hover:shadow-lg hover:shadow-accent/30 active:bg-accent-deep h-11 px-6 text-base w-full mt-6"
+                >
+                  Back to home
+                </Link>
+              </DialogContent>
             </Dialog>
 
             <form onSubmit={handleSubmit} className="space-y-5">
@@ -330,7 +318,9 @@ export default function Contact() {
                         "border-destructive/50 focus-visible:ring-destructive/50"
                     }
                   >
-                    <SelectValue placeholder="Select a category" />
+                    <span className="text-muted-foreground line-clamp-1">
+                      Select a category
+                    </span>
                   </SelectTrigger>
                   <SelectContent>
                     <SelectItem value="general">General Inquiry</SelectItem>

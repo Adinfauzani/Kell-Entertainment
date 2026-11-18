@@ -3,7 +3,7 @@
 import * as React from "react"
 import { usePathname } from "next/navigation"
 import Link from "next/link"
-import { Drawer, DrawerTrigger, DrawerPortal, DrawerClose, DrawerBackdrop, DrawerViewport, DrawerContent, DrawerTitle } from "@/components/ui/drawer"
+import { Drawer, DrawerTrigger, DrawerClose, DrawerContent, DrawerTitle } from "@/components/ui/drawer"
 import { cn } from "@/lib/utils"
 import { navLinks } from "@/lib/data"
 import { Menu, X, Mail } from "lucide-react"
@@ -61,46 +61,34 @@ export function Nav() {
       </nav>
 
       <Drawer open={open} onOpenChange={setOpen}>
-        <DrawerTrigger className="md:hidden inline-flex items-center justify-center p-2 rounded-sm text-muted-foreground hover:text-foreground hover:bg-accent/10">
-          <button
-            onClick={() => setOpen((o) => !o)}
-            className="inline-flex items-center justify-center p-2 rounded-sm text-muted-foreground hover:text-foreground hover:bg-accent/10"
-            aria-label="Open menu"
-            aria-expanded={open}
-          >
-            {open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
-          </button>
+        <DrawerTrigger className="md:hidden inline-flex items-center justify-center p-2 rounded-sm text-muted-foreground hover:text-foreground hover:bg-accent/10" aria-label="Open menu" aria-expanded={open}>
+          {open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
         </DrawerTrigger>
-        <DrawerPortal>
-          <DrawerBackdrop />
-          <DrawerViewport>
-            <DrawerContent>
-              <DrawerClose>
-                <button className="p-2 rounded-sm" aria-label="Close menu">
-                  <X className="h-5 w-5" />
-                </button>
-              </DrawerClose>
-              <DrawerTitle>Menu</DrawerTitle>
-              <div className="p-6 space-y-2 overflow-y-auto h-full">
-                {navLinks.map((link) => (
-                  <Link
-                    key={link.name}
-                    href={link.href}
-                    onClick={() => setOpen(false)}
-                    className={cn(
-                      "block rounded-sm px-4 py-3 text-sm uppercase tracking-wider transition-colors",
-                      pathname === link.href
-                        ? "bg-accent/20 text-accent font-semibold"
-                        : "text-muted-foreground hover:text-foreground hover:bg-accent/10"
-                    )}
-                  >
-                    {link.name}
-                  </Link>
-                ))}
-              </div>
-            </DrawerContent>
-          </DrawerViewport>
-        </DrawerPortal>
+        <DrawerContent>
+          <DrawerClose>
+            <button className="p-2 rounded-sm" aria-label="Close menu">
+              <X className="h-5 w-5" />
+            </button>
+          </DrawerClose>
+          <DrawerTitle>Menu</DrawerTitle>
+          <div className="p-6 space-y-2 overflow-y-auto h-full">
+            {navLinks.map((link) => (
+              <Link
+                key={link.name}
+                href={link.href}
+                onClick={() => setOpen(false)}
+                className={cn(
+                  "block rounded-sm px-4 py-3 text-sm uppercase tracking-wider transition-colors",
+                  pathname === link.href
+                    ? "bg-accent/20 text-accent font-semibold"
+                    : "text-muted-foreground hover:text-foreground hover:bg-accent/10"
+                )}
+              >
+                {link.name}
+              </Link>
+            ))}
+          </div>
+        </DrawerContent>
       </Drawer>
     </>
   )

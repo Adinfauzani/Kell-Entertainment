@@ -1,14 +1,14 @@
 "use client"
 
 import * as React from "react"
-import { Separator as SeparatorPrimitive } from "@base-ui/react/separator"
+import { Separator as ThemesSeparator } from "@radix-ui/themes"
 import { cn } from "@/lib/utils"
 
 const Separator = React.forwardRef<
   HTMLDivElement,
-  React.HTMLAttributes<HTMLDivElement>
+  React.ComponentProps<typeof ThemesSeparator> & { className?: string }
 >(({ className, ...props }, ref) => (
-  <SeparatorPrimitive
+  <ThemesSeparator
     ref={ref}
     className={cn(
       "flex w-full shrink-0 cursor-default select-none items-center rounded-md border border-border bg-background py-[1px]",

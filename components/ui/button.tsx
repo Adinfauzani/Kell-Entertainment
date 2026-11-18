@@ -1,22 +1,23 @@
 "use client"
 
 import * as React from "react"
-import { Button as ButtonPrimitive } from "@base-ui/react/button"
-import { cva, type VariantProps } from "class-variance-authority"
+import { Button as ThemesButton } from "@radix-ui/themes"
+import { cva } from "class-variance-authority"
 import { cn } from "@/lib/utils"
 
 const buttonVariants = cva(
-  "inline-flex shrink-0 items-center justify-center rounded-sm border bg-clip-padding text-xs/relaxed font-medium whitespace-nowrap transition-all outline-none select-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4 uppercase tracking-wider",
+  "uppercase tracking-wider [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4",
   {
     variants: {
       variant: {
-        gold: "border-transparent bg-accent text-accent-foreground hover:bg-accent-hover hover:shadow-lg hover:shadow-accent/30 active:bg-accent-deep",
-        "gold-outline": "border-border bg-transparent text-foreground hover:border-accent hover:bg-accent/10 hover:text-accent",
-        ghost: "border-transparent bg-transparent text-foreground hover:bg-accent/10 hover:text-accent",
+        gold: "data-[colorScheme=gold]:bg-accent data-[colorScheme=gold]:text-accent-foreground",
+        "gold-outline":
+          "data-[variant=outline]:border-border data-[variant=outline]:bg-transparent data-[variant=outline]:text-foreground data-[variant=outline]:hover:border-accent data-[variant=outline]:hover:bg-accent/10 data-[variant=outline]:hover:text-accent",
+        ghost: "data-[variant=ghost]:border-transparent data-[variant=ghost]:bg-transparent data-[variant=ghost]:text-foreground data-[variant=ghost]:hover:bg-accent/10 data-[variant=ghost]:hover:text-accent",
         subtle:
-          "border-border bg-secondary text-muted-foreground hover:bg-accent/10 hover:text-accent hover:border-accent",
+          "data-[variant=soft]:border-border data-[variant=soft]:bg-secondary data-[variant=soft]:text-muted-foreground data-[variant=soft]:hover:bg-accent/10 data-[variant=soft]:hover:text-accent data-[variant=soft]:hover:border-accent",
         editorial:
-          "border-transparent bg-accent text-accent-foreground hover:bg-accent-hover hover:shadow-[0_0_40px_rgba(194,133,46,0.4)] hover:shadow-accent/40 active:bg-accent-deep",
+          "data-[variant=solid]:bg-accent data-[variant=solid]:text-accent-foreground data-[variant=solid]:hover:bg-accent-hover data-[variant=solid]:hover:shadow-[0_0_40px_rgba(194,133,46,0.4)] data-[variant=solid]:hover:shadow-accent/40 active:bg-accent-deep",
       },
       size: {
         default: "h-10 px-4 py-2 text-sm",
@@ -32,9 +33,40 @@ const buttonVariants = cva(
   }
 )
 
+type ButtonVariant = "gold" | "gold-outline" | "ghost" | "subtle" | "editorial"
+type ButtonSize = "default" | "sm" | "lg" | "icon"
+
+type RadixVariant = "outline" | "ghost" | "classic" | "solid" | "soft" | "surface"
+type RadixSize = "1" | "2" | "3" | "4"
+type RadixColorScheme = "gold" | undefined
+
+const variantMap: Record<ButtonVariant, RadixVariant> = {
+  gold: "solid",
+  "gold-outline": "outline",
+  ghost: "ghost",
+  subtle: "soft",
+  editorial: "solid",
+}
+
+const colorSchemeMap: Record<ButtonVariant, RadixColorScheme> = {
+  gold: "gold",
+  "gold-outline": undefined,
+  ghost: undefined,
+  subtle: undefined,
+  editorial: "gold",
+}
+
+const sizeMap: Record<ButtonSize, RadixSize> = {
+  default: "2",
+  sm: "1",
+  lg: "3",
+  icon: "2",
+}
+
 interface ButtonProps
-  extends ButtonPrimitive.Props,
-    VariantProps<typeof buttonVariants> {
+  extends Omit<React.ComponentProps<typeof ThemesButton>, "variant" | "size"> {
+  variant?: ButtonVariant
+  size?: ButtonSize
   asChild?: boolean
 }
 
@@ -58,13 +90,15 @@ function Button({
   }
 
   return (
-    <ButtonPrimitive
-      data-slot="button"
+    <ThemesButton
+      variant={variantMap[variant]}
+      size={sizeMap[size]}
+      colorScheme={colorSchemeMap[variant]}
       className={classes}
       {...props}
     >
       {children}
-    </ButtonPrimitive>
+    </ThemesButton>
   )
 }
 

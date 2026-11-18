@@ -1,6 +1,5 @@
 import Link from "next/link"
 import { Reveal } from "@/components/reveal"
-import { Button } from "@/components/ui/button"
 import {
   Display,
   Heading,
@@ -285,9 +284,12 @@ export default function About() {
             We are selective about the projects we take on. Reach out with your
             idea and we will respond when we can give it proper attention.
           </Body>
-          <Button asChild variant="gold" size="lg" className="w-full">
-            <Link href="/contact">Contact Us</Link>
-          </Button>
+          <Link
+            href="/contact"
+            className="inline-flex shrink-0 items-center justify-center rounded-sm border bg-clip-padding text-xs/relaxed font-medium whitespace-nowrap transition-all outline-none select-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 uppercase tracking-wider border-transparent bg-accent text-accent-foreground hover:bg-accent-hover hover:shadow-lg hover:shadow-accent/30 active:bg-accent-deep h-11 px-6 text-base w-full"
+          >
+            Contact Us
+          </Link>
         </div>
       </section>
     </div>

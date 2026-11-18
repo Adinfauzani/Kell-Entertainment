@@ -1,6 +1,5 @@
 import Link from "next/link"
 import { Reveal } from "@/components/reveal"
-import { Button } from "@/components/ui/button"
 import {
   Display,
   Heading,
@@ -67,16 +66,18 @@ export default function Home() {
               and digital experiences built for the modern audience.
             </Body>
             <div className="flex flex-col sm:flex-row gap-4">
-              <Button asChild variant="gold" size="lg">
-                <Link href="/gallery" className="w-full">
-                  Explore Our Work
-                </Link>
-              </Button>
-              <Button variant="subtle" asChild size="lg">
-                <Link href="/contact" className="w-full">
-                  Contact Us
-                </Link>
-              </Button>
+              <Link
+                href="/gallery"
+                className="inline-flex shrink-0 items-center justify-center rounded-sm border bg-clip-padding text-xs/relaxed font-medium whitespace-nowrap transition-all outline-none select-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 uppercase tracking-wider border-transparent bg-accent text-accent-foreground hover:bg-accent-hover hover:shadow-lg hover:shadow-accent/30 active:bg-accent-deep h-11 px-6 text-base w-full"
+              >
+                Explore Our Work
+              </Link>
+              <Link
+                href="/contact"
+                className="inline-flex shrink-0 items-center justify-center rounded-sm border bg-clip-padding text-xs/relaxed font-medium whitespace-nowrap transition-all outline-none select-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 uppercase tracking-wider border-border bg-secondary text-muted-foreground hover:bg-accent/10 hover:text-accent hover:border-accent h-11 px-6 text-base w-full"
+              >
+                Contact Us
+              </Link>
             </div>
           </Reveal>
         </div>
@@ -204,9 +205,12 @@ export default function Home() {
           <Body className="text-muted-foreground mb-10 max-w-md mx-auto leading-relaxed">
             We are selective about the projects we take on. Tell us about yours.
           </Body>
-          <Button asChild variant="gold" size="lg" className="w-full">
-            <Link href="/contact">Start a Conversation</Link>
-          </Button>
+          <Link
+            href="/contact"
+            className="inline-flex shrink-0 items-center justify-center rounded-sm border bg-clip-padding text-xs/relaxed font-medium whitespace-nowrap transition-all outline-none select-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 uppercase tracking-wider border-transparent bg-accent text-accent-foreground hover:bg-accent-hover hover:shadow-lg hover:shadow-accent/30 active:bg-accent-deep h-11 px-6 text-base w-full"
+          >
+            Start a Conversation
+          </Link>
         </div>
       </section>
     </div>
