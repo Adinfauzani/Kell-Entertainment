@@ -1,7 +1,9 @@
 import Image from "next/image"
 import { cn } from "@/lib/utils"
-import { cn as cnUtil } from "cn"
 import { Caption, Heading } from "@/components/ui/typography"
+import { motion } from "motion/react"
+
+const blurDataURL = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8/5+hHgAHggJ/PchI7wAAAABJRU5ErkJggg=="
 
 interface HeroImageProps {
   src: string
@@ -10,6 +12,8 @@ interface HeroImageProps {
   fill?: boolean
   priority?: boolean
   sizes?: string
+  width?: number
+  height?: number
 }
 
 export function HeroImage({
@@ -19,6 +23,8 @@ export function HeroImage({
   fill = true,
   priority = false,
   sizes,
+  width,
+  height,
 }: HeroImageProps) {
   return (
     <Image
@@ -27,13 +33,16 @@ export function HeroImage({
       fill={fill}
       priority={priority}
       sizes={sizes}
+      width={width}
+      height={height}
       className={cn(
-        "object-cover object-center",
-        fill ? "absolute inset-0" : "",
+        fill ? "absolute inset-0 object-cover object-center" : "object-contain object-center block",
         className
       )}
       loading={priority ? "eager" : "lazy"}
       decoding="async"
+      placeholder="blur"
+      blurDataURL={blurDataURL}
     />
   )
 }
@@ -79,10 +88,12 @@ export function EditorialImage({
         fill={!width && !height}
         width={width}
         height={height}
-        className="absolute inset-0 w-full h-full object-cover"
+        className="absolute inset-0 w-full h-full object-cover transition-opacity duration-500"
         loading={lazyLoading ? "lazy" : "eager"}
         decoding="async"
         sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+        placeholder="blur"
+        blurDataURL={blurDataURL}
       />
     </div>
   )
@@ -96,6 +107,7 @@ interface ProjectPreviewProps {
   category?: string
   href?: string
   className?: string
+  style?: React.CSSProperties
 }
 
 export function ProjectPreview({
@@ -105,9 +117,15 @@ export function ProjectPreview({
   category,
   href,
   className,
+  style,
 }: ProjectPreviewProps) {
   return (
-    <div className={cn("group relative overflow-hidden rounded-xl border border-border bg-surface", className)}>
+    <motion.div
+      className={cn("group relative overflow-hidden rounded-xl border border-border bg-surface", className)}
+      style={style ?? { transition: "all 300ms cubic-bezier(0.16, 1, 0.3, 1)" }}
+      whileHover={{ y: -8 }}
+      transition={{ type: "spring", stiffness: 300, damping: 20 }}
+    >
       <div className="relative aspect-[3/4] overflow-hidden">
         <Image
           src={src}
@@ -117,10 +135,12 @@ export function ProjectPreview({
           loading="lazy"
           decoding="async"
           sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+          placeholder="blur"
+          blurDataURL={blurDataURL}
         />
         <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
         {category && (
-          <span className="absolute left-3 top-3 z-10 rounded-sm border border-border bg-background px-2 py-0.5 text-[10px] uppercase tracking-wider text-accent font-medium">
+          <span className="absolute left-3 top-3 z-10 rounded-sm border border-border bg-background/80 backdrop-blur-sm px-2 py-0.5 text-[10px] uppercase tracking-wider text-accent font-medium">
             {category}
           </span>
         )}
@@ -135,12 +155,12 @@ export function ProjectPreview({
       {title && (
         <div className="mt-4">
           <Caption className="text-muted-foreground uppercase tracking-wider">{category}</Caption>
-          <Heading as="h3" className="text-lg text-foreground mb-2">
+          <Heading as="h3" className="text-lg text-foreground mb-2 group-hover:text-accent transition-colors">
             {title}
           </Heading>
         </div>
       )}
-    </div>
+    </motion.div>
   )
 }
 ProjectPreview.displayName = "ProjectPreview"
@@ -151,6 +171,7 @@ interface GalleryImageProps {
   caption?: string
   category?: string
   className?: string
+  style?: React.CSSProperties
 }
 
 export function GalleryImage({
@@ -159,9 +180,15 @@ export function GalleryImage({
   caption,
   category,
   className,
+  style,
 }: GalleryImageProps) {
   return (
-    <div className={cn("group relative overflow-hidden rounded-xl border border-border bg-surface", className)}>
+    <motion.div
+      className={cn("group relative overflow-hidden rounded-xl border border-border bg-surface", className)}
+      style={style ?? { transition: "all 300ms cubic-bezier(0.16, 1, 0.3, 1)" }}
+      whileHover={{ y: -8 }}
+      transition={{ type: "spring", stiffness: 300, damping: 20 }}
+    >
       <div className="relative aspect-[4/5] overflow-hidden">
         <Image
           src={src}
@@ -171,10 +198,16 @@ export function GalleryImage({
           loading="lazy"
           decoding="async"
           sizes="(max-width: 768px) 50vw, (max-width: 1200px) 25vw, 20vw"
+          placeholder="blur"
+          blurDataURL={blurDataURL}
         />
         <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-        <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-          <span className="flex h-10 w-10 items-center justify-center rounded-full bg-accent text-accent-foreground shadow-lg">
+        <motion.div
+          initial={{ opacity: 0, scale: 0.9 }}
+          animate={{ opacity: 1, scale: 1 }}
+          className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+        >
+          <span className="flex h-10 w-10 items-center justify-center rounded-full bg-accent text-accent-foreground shadow-lg hover:scale-110 transition-transform">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 24 24"
@@ -188,9 +221,9 @@ export function GalleryImage({
               <polygon points="5 3 19 12 5 21 5 3" />
             </svg>
           </span>
-        </div>
+        </motion.div>
         {category && (
-          <span className="absolute left-3 top-3 z-10 rounded-sm border border-border bg-background px-2 py-0.5 text-[10px] uppercase tracking-wider text-accent font-medium">
+          <span className="absolute left-3 top-3 z-10 rounded-sm border border-border bg-background/80 backdrop-blur-sm px-2 py-0.5 text-[10px] uppercase tracking-wider text-accent font-medium">
             {category}
           </span>
         )}
@@ -204,7 +237,7 @@ export function GalleryImage({
           </div>
         )}
       </div>
-    </div>
+    </motion.div>
   )
 }
 GalleryImage.displayName = "GalleryImage"
@@ -212,7 +245,6 @@ GalleryImage.displayName = "GalleryImage"
 interface ImageLightboxProps {
   src: string
   alt: string
-  caption?: string
   category?: string
   className?: string
 }
@@ -220,7 +252,6 @@ interface ImageLightboxProps {
 export function ImageLightbox({
   src,
   alt,
-  caption,
   category,
   className,
 }: ImageLightboxProps) {
@@ -235,9 +266,11 @@ export function ImageLightbox({
         decoding="async"
         style={{ aspectRatio: "3/4" }}
         sizes="(max-width: 768px) 100vw, 50vw"
+        placeholder="blur"
+        blurDataURL={blurDataURL}
       />
       {category && (
-        <span className="absolute left-3 top-3 z-10 rounded-sm border border-border bg-background px-2 py-0.5 text-[10px] uppercase tracking-wider text-accent font-medium">
+        <span className="absolute left-3 top-3 z-10 rounded-sm border border-border bg-black/40 backdrop-blur-xl border-white/10 px-2 py-0.5 text-[10px] uppercase tracking-wider text-accent font-medium">
           {category}
         </span>
       )}

@@ -1,19 +1,15 @@
+"use client"
+
+import { useState } from "react"
 import Link from "next/link"
 import { galleryItems, galleryCategories } from "@/lib/data"
-import { Heading, Body, Caption } from "@/components/ui/typography"
+import { Heading, Body } from "@/components/ui/typography"
 import { GalleryClient } from "@/components/gallery-client"
 
-export const metadata = {
-  title: "Gallery",
-  description: "KELL Entertainment visual portfolio and project gallery.",
-}
-
-interface PageProps {
-  searchParams?: { category?: string }
-}
-
-export default function GalleryPage({ searchParams }: PageProps) {
-  const category = searchParams?.category ?? "all"
+export default function GalleryPage() {
+  const search = typeof window !== "undefined" ? window.location.search : ""
+  const params = new URLSearchParams(search)
+  const [category, setCategory] = useState(() => params.get("category") ?? "all")
 
   const filtered =
     category === "all"

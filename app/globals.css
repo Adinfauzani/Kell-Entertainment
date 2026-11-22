@@ -39,17 +39,37 @@
   --accent-deep: #6B3C0B;
   --accent-soft: #FCE6A0;
 
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-  --font-heading: var(--font-playfair);
+  --font-sans: var(--font-plus-jakarta);
+  --font-mono: var(--font-plus-jakarta);
+  --font-heading: var(--font-plus-jakarta);
 
-  --typography-display: 4rem var(--font-heading);
-  --typography-heading: 2.25rem var(--font-heading);
-  --typography-subheading: 1.5rem var(--font-heading);
+  --typography-display: clamp(3rem, 5vw, 5rem) var(--font-heading);
+  --typography-heading: clamp(2rem, 3.5vw, 3rem) var(--font-heading);
+  --typography-subheading: clamp(1.25rem, 2vw, 1.5rem) var(--font-heading);
   --typography-body: 1rem var(--font-sans);
   --typography-caption: 0.75rem var(--font-sans);
   --typography-eyebrow: 0.75rem var(--font-sans);
   --typography-metadata: 0.75rem var(--font-mono);
+
+  --typography-display-weight: 700;
+  --typography-heading-weight: 700;
+  --typography-subheading-weight: 600;
+  --typography-body-weight: 400;
+  --typography-eyebrow-weight: 500;
+  --typography-caption-weight: 400;
+
+  --typography-display-leading: 1.05;
+  --typography-heading-leading: 1.1;
+  --typography-subheading-leading: 1.2;
+  --typography-body-leading: 1.7;
+  --typography-caption-leading: 1.5;
+  --typography-eyebrow-leading: 1.5;
+
+  --typography-display-tracking: -0.02em;
+  --typography-heading-tracking: -0.01em;
+  --typography-subheading-tracking: -0.01em;
+  --typography-eyebrow-tracking: 0.3em;
+  --typography-caption-tracking: 0.15em;
 
   --spacing-1: 0.25rem;
   --spacing-2: 0.5rem;
@@ -63,6 +83,10 @@
   --spacing-16: 4rem;
   --spacing-20: 5rem;
   --spacing-24: 6rem;
+
+  --section-gap: clamp(7rem, 10vw, 9rem);
+  --container-max: 1200px;
+  --hero-image-max: 640px;
 
   --motion-duration-fast: 150ms;
   --motion-duration-base: 300ms;
@@ -130,11 +154,32 @@ body {
     border-color: rgba(194, 133, 46, 0.45);
   }
   .hover-gold\:border {
-    @apply border-transparent;
+    border-color: transparent;
     transition: border-color 0.4s ease;
   }
   .hover-gold\:border:hover {
     border-color: #C2852E;
+  }
+
+  .text-gradient-gold {
+    background: linear-gradient(135deg, #F8D374 0%, #C2852E 50%, #DCA046 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-size: 200% 200%;
+    animation: gold-shift 4s ease infinite;
+  }
+
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+
+  .mask-fade-bottom {
+    mask-image: linear-gradient(to bottom, black 70%, transparent 100%);
   }
 }
 
@@ -162,33 +207,56 @@ body {
 
 @layer base {
   .kell-display {
-    @apply text-[4rem] font-heading font-bold tracking-tight leading-[1.05];
+    @apply font-heading font-bold tracking-tight leading-[1.05];
+    font-size: clamp(3rem, 5vw, 5rem);
+    letter-spacing: -0.02em;
   }
   .kell-heading {
-    @apply text-[2.25rem] font-heading font-bold tracking-tight leading-[1.15];
+    @apply font-heading font-bold tracking-tight leading-[1.1];
+    font-size: clamp(2rem, 3.5vw, 3rem);
+    letter-spacing: -0.01em;
   }
   .kell-subheading {
-    @apply text-[1.5rem] font-heading font-semibold tracking-tight leading-[1.2];
+    @apply font-heading font-semibold tracking-tight leading-[1.2];
+    font-size: clamp(1.25rem, 2vw, 1.5rem);
+    letter-spacing: -0.01em;
   }
   .kell-body {
-    @apply text-base font-sans leading-relaxed;
+    @apply font-sans leading-relaxed;
+    font-size: 1rem;
+    line-height: 1.7;
   }
   .kell-caption {
-    @apply text-[0.75rem] font-sans text-muted-foreground uppercase tracking-wider;
+    @apply font-sans text-muted-foreground uppercase;
+    font-size: 0.75rem;
+    line-height: 1.5;
+    letter-spacing: 0.15em;
+    font-weight: 400;
   }
   .kell-eyebrow {
-    @apply text-[0.75rem] font-sans text-accent uppercase tracking-widest font-medium;
+    @apply font-sans text-accent uppercase font-medium;
+    font-size: 0.75rem;
+    line-height: 1.5;
+    letter-spacing: 0.3em;
   }
   .kell-metadata {
-    @apply text-[0.75rem] font-mono text-muted-foreground uppercase tracking-wider;
+    @apply font-mono text-muted-foreground uppercase;
+    font-size: 0.75rem;
+    line-height: 1.5;
+    letter-spacing: 0.15em;
   }
 }
 
 @layer utilities {
   .shimmer {
-    background: linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.05) 40%, transparent 100%);
+    background: linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.08) 40%, transparent 100%);
     background-size: 200% 100%;
-    animation: shimmer 2s infinite;
+    animation: shimmer 2.5s infinite;
+  }
+  .shimmer-gold {
+    background: linear-gradient(90deg, transparent 0%, rgba(194, 133, 46, 0.15) 40%, transparent 100%);
+    background-size: 200% 100%;
+    animation: shimmer 3s infinite;
   }
 }
 

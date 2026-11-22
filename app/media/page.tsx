@@ -1,20 +1,16 @@
+"use client"
+
+import { useState } from "react"
 import { MediaGrid } from "@/components/media-grid"
 import { mediaItems, mediaCategories } from "@/lib/data"
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs"
 import { Eyebrow, Heading, Body } from "@/components/ui/typography"
 
-export const metadata = {
-  title: "Media",
-  description: "KELL Entertainment media publications and releases.",
-}
-
-interface PageProps {
-  searchParams?: { q?: string; category?: string }
-}
-
-export default function MediaPage({ searchParams }: PageProps) {
-  const q = (searchParams?.q ?? "").toLowerCase()
-  const category = searchParams?.category ?? "all"
+export default function MediaPage() {
+  const search = typeof window !== "undefined" ? window.location.search : ""
+  const params = new URLSearchParams(search)
+  const [q, setQ] = useState(() => (params.get("q") ?? "").toLowerCase())
+  const [category, setCategory] = useState(() => params.get("category") ?? "all")
 
   const filtered = mediaItems.filter((item) => {
     const matchesQuery =

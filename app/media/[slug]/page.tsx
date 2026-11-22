@@ -91,7 +91,6 @@ export default function MediaDetail({ params }: { params: { slug: string } }) {
                   key={item.slug}
                   src={item.cover}
                   alt={item.title}
-                  caption={item.title}
                   category={item.category}
                 />
                 <CardHeader className="p-0 pt-0 pb-2">

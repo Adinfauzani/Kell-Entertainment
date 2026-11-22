@@ -11,7 +11,7 @@ export function Display({ className, children, as: Comp = "h1", ...props }: Disp
     <Comp
       {...props}
       className={cn(
-        "kell-display text-foreground tracking-tight",
+        "kell-display text-foreground",
         className
       )}
     >
@@ -31,7 +31,7 @@ export function Heading({ className, children, as: Comp = "h2", ...props }: Head
     <Comp
       {...props}
       className={cn(
-        "kell-heading text-foreground tracking-tight",
+        "kell-heading text-foreground",
         className
       )}
     >
@@ -51,7 +51,7 @@ export function Subheading({ className, children, as: Comp = "h3", ...props }: S
     <Comp
       {...props}
       className={cn(
-        "kell-subheading text-foreground tracking-tight",
+        "kell-subheading text-foreground",
         className
       )}
     >
@@ -70,7 +70,7 @@ export function Body({ className, children, as: Comp = "p", ...props }: BodyProp
   return (
     <Comp
       {...props}
-      className={cn("kell-body text-foreground leading-relaxed", className)}
+      className={cn("kell-body text-foreground", className)}
     >
       {children}
     </Comp>
@@ -104,7 +104,7 @@ export function Eyebrow({ className, children, as: Comp = "p", ...props }: Eyebr
   return (
     <Comp
       {...props}
-      className={cn("kell-eyebrow uppercase tracking-widest", className)}
+      className={cn("kell-eyebrow", className)}
     >
       {children}
     </Comp>
@@ -121,7 +121,7 @@ export function Metadata({ className, children, as: Comp = "span", ...props }: M
   return (
     <Comp
       {...props}
-      className={cn("kell-metadata uppercase tracking-wider", className)}
+      className={cn("kell-metadata", className)}
     >
       {children}
     </Comp>

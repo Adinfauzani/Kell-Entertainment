@@ -1,295 +1,639 @@
+"use client"
+
 import Link from "next/link"
-import { Reveal } from "@/components/reveal"
+import { motion } from "motion/react"
 import {
   Display,
   Heading,
-  Subheading,
   Body,
   Eyebrow,
   Caption,
-  Metadata,
 } from "@/components/ui/typography"
 import {
   EditorialImage,
-  ImageLightbox,
+  HeroImage,
 } from "@/components/ui/image"
-import { playIcon } from "@/components/ui/icons"
-
-export const metadata = {
-  title: "About",
-  description:
-    "About KELL Entertainment — identity, vision, mission, and creative philosophy.",
-}
+import { playIcon, PodcastIcon, VideoIcon, MediaIcon, CollaborationIcon } from "@/components/ui/icons"
+import { teamMembers } from "@/lib/data"
 
 const values = [
   {
-    title: "Intentionality",
-    body: "Every frame, cut, and decision is made with purpose. We do not create for the sake of output.",
+    title: "Creativity",
+    body: "Menghargai ide dan keberanian untuk menciptakan sesuatu yang baru.",
   },
   {
-    title: "Restraint",
-    body: "Less noise, more signal. We remove what does not serve the story.",
+    title: "Collaboration",
+    body: "Percaya bahwa karya yang baik dapat tumbuh melalui kerja sama.",
   },
   {
-    title: "Longevity",
-    body: "Work that outlives the trend cycle. Built to be revisited, not scrolled past.",
+    title: "Authenticity",
+    body: "Mengutamakan keaslian ide, karakter, dan perspektif.",
+  },
+  {
+    title: "Growth",
+    body: "Menjadikan setiap proses sebagai kesempatan untuk belajar dan berkembang.",
+  },
+  {
+    title: "Expression",
+    body: "Memberikan ruang bagi setiap individu untuk menyampaikan cerita dan gagasannya.",
   },
 ]
 
 const philosophy = [
-  "We believe creativity is a practice, not a product.",
-  "We believe in collaboration over competition.",
-  "We believe in finishing what we start, quietly and well.",
+  "Kami percaya kreativitas adalah praktik, bukan sekadar produk.",
+  "Kami percaya kolaborasi lebih berarti daripada kompetisi.",
+  "Kami percaya menyelesaikan apa yang dimulai dengan sungguh-sungguh dan tenang.",
+]
+
+const whatWeDo = [
+  {
+    title: "Podcast Production",
+    description: "Menghadirkan ruang percakapan melalui podcast yang membahas ide, pengalaman, perspektif, dan berbagai topik menarik dari sudut pandang generasi muda.",
+    Icon: PodcastIcon,
+    href: "/media?category=creative-projects",
+  },
+  {
+    title: "Video Series Production",
+    description: "Mengembangkan dan memproduksi video series dengan konsep serta cerita yang dikemas secara kreatif, menarik, dan relevan dengan audiens.",
+    Icon: VideoIcon,
+    href: "/media?category=entertainment",
+  },
+  {
+    title: "Creative Media Production",
+    description: "Mengolah gagasan menjadi konten audiovisual melalui proses kreatif, mulai dari pengembangan konsep hingga produksi dan publikasi.",
+    Icon: MediaIcon,
+    href: "/gallery",
+  },
+  {
+    title: "Creative Collaboration",
+    description: "Membuka peluang kolaborasi untuk individu maupun komunitas yang memiliki semangat dan ketertarikan dalam dunia kreatif.",
+    Icon: CollaborationIcon,
+    href: "/contact",
+  },
 ]
 
 export default function About() {
   return (
     <div className="bg-background text-foreground">
-      <section className="px-6 pt-24 pb-32 lg:pt-32 lg:pb-40 overflow-hidden">
-        <div className="max-w-4xl mx-auto text-center">
-          <Reveal
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            className="inline-flex items-center gap-2 rounded-sm border border-accent/20 bg-accent/5 px-3 py-1 text-xs font-medium uppercase tracking-widest text-accent mb-8"
-          >
-            KELL Entertainment
-          </Reveal>
-          <Reveal
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.1 }}
-            className="font-heading text-5xl font-bold tracking-tight leading-[1.1] mb-6"
-          >
-            About KELL Entertainment
-          </Reveal>
-          <Reveal
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-            className="text-lg text-muted-foreground leading-relaxed max-w-xl mx-auto"
-          >
-            KELL Entertainment is an independent creative studio focused on media
-            production, visual storytelling, and digital experiences. We partner
-            with artists, brands, and creators to produce work that feels
-            intentional and lasting.
-          </Reveal>
+      {/* Hero - Editorial Two-Column Layout */}
+      <section className="relative overflow-hidden" style={{ paddingTop: "var(--spacing-20)", paddingBottom: "var(--spacing-24)" }}>
+        <div className="absolute inset-0 -z-10">
+          <div className="w-[800px] h-[800px] rounded-full bg-accent/10 blur-[160px] -top-40 -left-40 animate-[pulse_10s_ease-in_out_infinite]" />
+          <div className="w-[700px] h-[700px] rounded-full bg-accent/5 blur-[120px] -bottom-40 -right-40 animate-[pulse_12s_ease_in_out_infinite_reverse]" />
         </div>
-      </section>
 
-      {/* Brand Story */}
-      <section className="px-6 py-24 bg-surface/40 border-y border-border/50">
-        <div className="max-w-7xl mx-auto">
-          <div className="grid lg:grid-cols-12 gap-12 items-center">
-            <div className="lg:col-span-5 space-y-6">
-              <Reveal
-                initial={{ opacity: 0, x: -30 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.7 }}
-                className="flex items-center gap-2 text-accent font-medium uppercase tracking-wider text-sm"
+        <div className="max-w-[var(--container-max)] mx-auto px-6">
+          <div className="grid lg:grid-cols-12 gap-8 lg:gap-16 items-start">
+            {/* Left Column - Text */}
+            <div className="lg:col-span-7 lg:pt-16">
+              <motion.div
+                initial={{ opacity: 0, y: 30 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+                className="mb-8"
               >
-                <span className="relative flex h-6 w-6">
-                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-accent opacity-40"></span>
-                  <span className="relative inline-flex rounded-full h-6 w-6 bg-accent"></span>
-                </span>
-                Brand Story
-              </Reveal>
-              <Reveal
-                initial={{ opacity: 0, x: -30 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.7, delay: 0.1 }}
-                className="font-heading text-4xl font-bold tracking-tight leading-[1.15]"
+                <Eyebrow className="inline-flex items-center gap-2 rounded-sm border border-accent/20 bg-accent/5 px-3 py-1">
+                  KELL Entertainment
+                </Eyebrow>
+              </motion.div>
+              <motion.h1
+                initial={{ opacity: 0, y: 30 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
+                className="mb-6"
               >
-                Built around a point of view.
-              </Reveal>
-              <Reveal
-                initial={{ opacity: 0, x: -30 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.7, delay: 0.2 }}
-                className="text-muted-foreground leading-relaxed"
+                <Display as="h1">About <span className="text-gradient-gold">KELL Entertainment</span></Display>
+              </motion.h1>
+              <motion.p
+                initial={{ opacity: 0, y: 30 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
+                className="text-muted-foreground max-w-xl"
               >
-                KELL Entertainment began as a response to oversaturated creative
-                output — work made for algorithms rather than people. We take the
-                opposite approach: fewer projects, deeper consideration, and a
-                point of view that does not chase the moment.
-              </Reveal>
+                <Body className="text-lg">A Place Where Creativity Finds Its Voice.</Body>
+              </motion.p>
+              <motion.div
+                initial={{ opacity: 0, y: 30 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
+                className="mt-10 flex flex-wrap items-center gap-4 text-muted-foreground/70"
+              >
+                <Caption>Founded October 20, 2026</Caption>
+                <span className="w-px h-4 bg-border/50" />
+                <Caption>Gen Z Creative Studio</Caption>
+                <span className="w-px h-4 bg-border/50" />
+                <Caption>Jakarta, Indonesia</Caption>
+              </motion.div>
             </div>
-            <div className="lg:col-span-7">
-              <div className="relative aspect-[3/4] rounded-xl border border-border bg-surface overflow-hidden">
-                <EditorialImage
+
+            {/* Right Column - Hero Image */}
+            <div className="lg:col-span-5 relative">
+              <motion.div
+                initial={{ opacity: 0, y: 40, scale: 0.98 }}
+                animate={{ opacity: 1, y: 0, scale: 1 }}
+                transition={{ duration: 1, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
+                className="relative aspect-[3/4] rounded-2xl border border-border/50 bg-surface overflow-hidden group"
+                style={{ maxWidth: "var(--hero-image-max)", marginLeft: "auto" }}
+              >
+                <HeroImage
                   src="/images/placeholder.svg"
-                  alt="Our approach at KELL Entertainment"
-                  ratio="3/4"
+                  alt="KELL Entertainment creative studio workspace"
+                  className="object-cover transition-transform duration-1000 group-hover:scale-105"
                 />
-                <div className="absolute inset-0 flex items-center justify-center p-8">
-                  <div className="flex h-full w-full flex-col items-center justify-center gap-4 rounded-xl border-2 border-accent/30 bg-accent/5 p-8">
-                    <span className="h-12 w-12 rounded-full bg-accent flex items-center justify-center">
-                      <span className="h-5 w-5 text-accent-foreground">{playIcon}</span>
+                <div className="absolute inset-0 flex items-center justify-center p-8 pointer-events-none">
+                  <div className="flex h-full w-full flex-col items-center justify-center gap-4 rounded-xl border-2 border-accent/30 bg-accent/5 p-8 text-center opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+                    <span className="h-14 w-14 rounded-full bg-accent flex items-center justify-center">
+                      <span className="h-6 w-6 text-accent-foreground">{playIcon}</span>
                     </span>
-                    <span className="text-accent font-semibold uppercase tracking-wider text-xs">
-                      Our Approach
+                    <span className="text-accent font-semibold uppercase tracking-wider text-sm">
+                      Our Story
                     </span>
                   </div>
                 </div>
-              </div>
+              </motion.div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Vision & Mission */}
-      <section className="px-6 py-24">
-        <div className="max-w-7xl mx-auto">
-          <div className="grid md:grid-cols-2 gap-12">
-            <div className="space-y-8">
-              <Reveal
-                initial={{ opacity: 0, y: 30 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.7 }}
-                className="space-y-4"
+      {/* Introduction / Who We Are */}
+      <section className="border-y border-border/50 bg-surface/30" style={{ paddingTop: "var(--section-gap)", paddingBottom: "var(--section-gap)" }}>
+        <div className="max-w-[var(--container-max)] mx-auto px-6">
+          <div className="grid lg:grid-cols-12 gap-8 lg:gap-16 items-start">
+            <div className="lg:col-span-7 space-y-6">
+              <motion.div
+                initial={{ opacity: 0, x: -30 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true, margin: "-100px" }}
+                transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+                className="flex items-center gap-2 text-accent"
               >
-                <Heading as="h3">Vision</Heading>
-                <Body className="text-muted-foreground leading-relaxed">
-                  To be the quiet standard for premium creative media — work
-                  recognized not by volume, but by the care behind it.
-                </Body>
-              </Reveal>
-              <Reveal
-                initial={{ opacity: 0, y: 30 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.7, delay: 0.1 }}
-                className="space-y-4"
+                <Eyebrow>Who We Are</Eyebrow>
+              </motion.div>
+              <motion.div
+                initial={{ opacity: 0, x: -30 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true, margin: "-100px" }}
+                transition={{ duration: 0.7, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
               >
-                <Heading as="h3">Mission</Heading>
-                <Body className="text-muted-foreground leading-relaxed">
-                  To produce media, visuals, and experiences that creators and
-                  audiences return to — long after the first view.
-                </Body>
-              </Reveal>
+                <Heading as="h2">KELL Entertainment adalah sebuah wadah kreatif yang berfokus pada pengembangan karya dan produksi konten audiovisual, khususnya podcast dan video series.</Heading>
+              </motion.div>
+              <motion.div
+                initial={{ opacity: 0, x: -30 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true, margin: "-100px" }}
+                transition={{ duration: 0.7, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
+                className="space-y-4 text-muted-foreground"
+              >
+                <Body>Kami hadir sebagai ruang bagi generasi muda untuk menuangkan ide, mengekspresikan kreativitas, serta menghadirkan cerita dan perspektif baru melalui karya.</Body>
+                <Body>Kami percaya bahwa setiap orang memiliki cerita, gagasan, dan potensi yang layak untuk ditampilkan. Karena itu, KELL Entertainment dibangun dengan semangat kolaborasi, keberanian berekspresi, dan keinginan untuk menciptakan sesuatu yang bermakna.</Body>
+              </motion.div>
             </div>
-            <div className="space-y-8">
-              <Reveal
+            <div className="lg:col-span-5">
+              <motion.div
                 initial={{ opacity: 0, y: 30 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.7, delay: 0.2 }}
-                className="space-y-4"
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-100px" }}
+                transition={{ duration: 0.8, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
+                className="relative aspect-[3/4] rounded-2xl border border-border/50 bg-surface overflow-hidden"
               >
-                <Heading as="h3">Core Values</Heading>
-                <ul className="space-y-4 text-muted-foreground leading-relaxed">
-                  {values.map((value) => (
-                    <li key={value.title} className="flex gap-3">
-                      <span className="shrink-0 text-accent font-mono text-xs">
-                        {value.title}
-                      </span>
-                      {value.body}
-                    </li>
-                  ))}
-                </ul>
-              </Reveal>
+                <EditorialImage
+                  src="/images/placeholder.svg"
+                  alt="KELL Entertainment team collaborating"
+                  ratio="3/4"
+                  className="object-cover"
+                />
+              </motion.div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Creative Philosophy */}
-      <section className="px-6 py-24 bg-surface/40 border-y border-border/50">
-        <div className="max-w-4xl mx-auto">
-          <Heading as="h2" className="text-4xl font-bold tracking-tight mb-12 text-center">
-            Creative Philosophy
-          </Heading>
-          <ul className="max-w-2xl mx-auto space-y-8">
-            {philosophy.map((line, i) => (
-              <li key={i}>
-                <Reveal
-                  initial={{ opacity: 0, x: -30 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ duration: 0.6, delay: i * 0.1 }}
-                  className="relative pl-10 text-lg text-muted-foreground leading-relaxed block"
-                >
-                  <span className="absolute left-0 top-0.5 h-3.5 w-0.5 bg-accent" />
-                  {line}
-                </Reveal>
-              </li>
-            ))}
-          </ul>
-        </div>
-      </section>
-
-      {/* Brand Identity */}
-      <section className="px-6 py-24">
-        <div className="max-w-7xl mx-auto">
-          <Heading as="h2" className="text-4xl font-bold tracking-tight mb-12 text-center">
-            Brand Identity
-          </Heading>
-          <div className="grid md:grid-cols-3 gap-6">
-            {[
-              {
-                name: "Background",
-                value: "#09090B",
-                desc: "Dominant, near-black canvas.",
-              },
-              {
-                name: "Primary Gold",
-                value: "#C2852E",
-                desc: "Main accent for emphasis.",
-              },
-              {
-                name: "Classic Gold",
-                value: "#DCA046",
-                desc: "Hover and interaction states.",
-              },
-              {
-                name: "Champagne Gold",
-                value: "#F8D374",
-                desc: "Highlights and details.",
-              },
-              {
-                name: "Deep Gold",
-                value: "#6B3C0B",
-                desc: "Shadows and depth.",
-              },
-              {
-                name: "Soft Gold",
-                value: "#FCE6A0",
-                desc: "Subtle atmospheric highlights.",
-              },
-            ].map((swatch) => (
-              <div
-                key={swatch.name}
-                className="p-6 rounded-xl border border-border bg-surface hover:border-accent/40 transition-colors"
+      {/* Our Story - Numbered Label */}
+      <section style={{ paddingTop: "var(--section-gap)", paddingBottom: "var(--section-gap)" }}>
+        <div className="max-w-[var(--container-max)] mx-auto px-6">
+          <div className="grid lg:grid-cols-12 gap-8 lg:gap-16 items-start">
+            {/* Left - Image */}
+            <div className="lg:col-span-5 lg:order-2">
+              <motion.div
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-100px" }}
+                transition={{ duration: 0.8, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
+                className="relative aspect-[4/3] rounded-2xl border border-border/50 bg-surface overflow-hidden"
               >
-                <Caption className="text-muted-foreground uppercase tracking-wider mb-2">
-                  {swatch.name}
-                </Caption>
-                <div className="flex items-center gap-3 mb-2">
-                  <div className="h-8 w-8 rounded-sm border border-border" style={{ backgroundColor: swatch.value }} />
-                  <span className="font-mono text-xs text-foreground">{swatch.value}</span>
+                <EditorialImage
+                  src="/images/placeholder.svg"
+                  alt="KELL Entertainment founding story"
+                  ratio="4/3"
+                  className="object-cover"
+                />
+                <div className="absolute inset-0 flex items-center justify-center p-8 pointer-events-none">
+                  <div className="flex h-full w-full flex-col items-center justify-center gap-4 rounded-xl border-2 border-accent/30 bg-accent/5 p-8 text-center opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+                    <span className="h-14 w-14 rounded-full bg-accent flex items-center justify-center">
+                      <span className="h-6 w-6 text-accent-foreground">{playIcon}</span>
+                    </span>
+                    <span className="text-accent font-semibold uppercase tracking-wider text-sm">
+                      Founded October 20, 2026
+                    </span>
+                  </div>
                 </div>
-                <Caption className="text-xs text-muted-foreground leading-relaxed">
-                  {swatch.desc}
-                </Caption>
-              </div>
-            ))}
+              </motion.div>
+            </div>
+
+            {/* Right - Text */}
+            <div className="lg:col-span-7 lg:order-1 space-y-6">
+              <motion.div
+                initial={{ opacity: 0, x: 30 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true, margin: "-100px" }}
+                transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+                className="flex items-center gap-3"
+              >
+                <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-accent/10 text-accent font-bold text-xl font-mono">01</span>
+                <Eyebrow>Our Story</Eyebrow>
+              </motion.div>
+              <motion.h2
+                initial={{ opacity: 0, x: 30 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true, margin: "-100px" }}
+                transition={{ duration: 0.7, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
+              >
+                <Heading as="h2">Berawal dari Sekumpulan Ide, Tumbuh Menjadi Sebuah Karya.</Heading>
+              </motion.h2>
+              <motion.div
+                initial={{ opacity: 0, x: 30 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true, margin: "-100px" }}
+                transition={{ duration: 0.7, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
+                className="space-y-4 text-muted-foreground"
+              >
+                <Body>KELL Entertainment berawal dari perkumpulan sejumlah anak muda Gen Z yang memiliki ketertarikan dan semangat yang sama: ingin menciptakan sesuatu dan menampilkan karya mereka kepada lebih banyak orang.</Body>
+                <Body>Dari berbagai percakapan, ide, dan keinginan untuk berekspresi, muncul sebuah gagasan untuk membangun ruang kreatif yang dapat menjadi tempat berkumpul, berkolaborasi, dan menghasilkan karya.</Body>
+                <Body>Keinginan sederhana tersebut kemudian berkembang menjadi sebuah langkah nyata. Pada <strong>20 Oktober 2026</strong>, KELL Entertainment resmi didirikan sebagai wadah untuk mengembangkan kreativitas melalui podcast, video series, dan berbagai bentuk produksi konten kreatif lainnya.</Body>
+                <Body>Kami memulai perjalanan ini dengan satu keyakinan: bahwa karya tidak harus menunggu sempurna untuk mulai ditampilkan. Setiap ide memiliki kesempatan untuk berkembang, dan setiap proses adalah bagian dari perjalanan kreatif.</Body>
+              </motion.div>
+            </div>
           </div>
         </div>
       </section>
 
-      {/* Collaboration CTA */}
-      <section className="px-6 py-24">
-        <div className="max-w-3xl mx-auto py-20 rounded-2xl border border-accent/30 bg-accent/5 text-center">
-          <Heading as="h2" className="mb-4">
-            Let&rsquo;s make something.
-          </Heading>
-          <Body className="text-muted-foreground mb-10 max-w-md mx-auto leading-relaxed">
-            We are selective about the projects we take on. Reach out with your
-            idea and we will respond when we can give it proper attention.
-          </Body>
-          <Link
-            href="/contact"
-            className="inline-flex shrink-0 items-center justify-center rounded-sm border bg-clip-padding text-xs/relaxed font-medium whitespace-nowrap transition-all outline-none select-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 uppercase tracking-wider border-transparent bg-accent text-accent-foreground hover:bg-accent-hover hover:shadow-lg hover:shadow-accent/30 active:bg-accent-deep h-11 px-6 text-base w-full"
+      {/* Vision & Mission - Clean Balanced Layout */}
+      <section className="border-y border-border/50 bg-surface/30" style={{ paddingTop: "var(--section-gap)", paddingBottom: "var(--section-gap)" }}>
+        <div className="max-w-[var(--container-max)] mx-auto px-6">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+            className="text-center mb-16 lg:mb-20 max-w-3xl mx-auto"
           >
-            Contact Us
-          </Link>
+            <Eyebrow>Purpose</Eyebrow>
+            <Heading as="h2" className="mt-4">Vision & Mission</Heading>
+            <Body className="mt-6 text-muted-foreground max-w-xl mx-auto">Kami dibangun di atas fondasi tujuan yang jelas: memberdayakan generasi muda melalui ruang kreatif yang bermakna.</Body>
+          </motion.div>
+
+          <div className="grid md:grid-cols-2 gap-8 lg:gap-12">
+            {/* Vision */}
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-100px" }}
+              transition={{ duration: 0.7, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
+              className="p-8 lg:p-10 rounded-2xl border border-border/50 bg-background/50 space-y-6"
+            >
+              <div className="flex items-start gap-4">
+                <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-accent/10 text-accent font-bold text-xl font-mono">V</span>
+                <div>
+                  <Heading as="h3" className="text-xl">Vision</Heading>
+                  <Caption className="mt-1">Where we&rsquo;re headed</Caption>
+                </div>
+              </div>
+              <Body className="text-muted-foreground text-lg leading-relaxed pt-2">
+                Menjadi wadah kreatif yang mampu mendorong generasi muda untuk berani berkarya, menghadirkan cerita yang inspiratif, serta membangun ekosistem produksi konten yang inovatif dan relevan dengan perkembangan zaman.
+              </Body>
+            </motion.div>
+
+            {/* Mission */}
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-100px" }}
+              transition={{ duration: 0.7, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
+              className="p-8 lg:p-10 rounded-2xl border border-border/50 bg-background/50 space-y-6"
+            >
+              <div className="flex items-start gap-4">
+                <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-accent/10 text-accent font-bold text-xl font-mono">M</span>
+                <div>
+                  <Heading as="h3" className="text-xl">Mission</Heading>
+                  <Caption className="mt-1">How we get there</Caption>
+                </div>
+              </div>
+              <ol className="space-y-4 text-muted-foreground leading-relaxed pt-2">
+                {[
+                  "Empowering Young Creators — Membuka ruang bagi generasi muda untuk mengembangkan potensi, ide, dan kreativitas.",
+                  "Producing Meaningful Content — Menghasilkan podcast dan video series yang menarik, berkualitas, dan memiliki nilai bagi audiens.",
+                  "Building Creative Collaboration — Mendorong kolaborasi antarindividu dengan berbagai latar belakang, perspektif, dan kemampuan.",
+                  "Encouraging Creative Expression — Menciptakan lingkungan yang mendukung kebebasan berekspresi dan keberanian dalam menampilkan karya.",
+                  "Growing Together — Terus belajar, berkembang, dan beradaptasi dalam industri kreatif dan media digital.",
+                ].map((item, i) => (
+                  <li key={i} className="flex gap-3">
+                    <span className="shrink-0 text-accent font-mono text-xs mt-1.5">{String(i + 1).padStart(2, "0")}</span>
+                    <span>{item}</span>
+                  </li>
+                ))}
+              </ol>
+            </motion.div>
+          </div>
+        </div>
+      </section>
+
+      {/* What We Do - Editorial Grid */}
+      <section style={{ paddingTop: "var(--section-gap)", paddingBottom: "var(--section-gap)" }}>
+        <div className="max-w-[var(--container-max)] mx-auto px-6">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+            className="text-center mb-16 lg:mb-20 max-w-3xl mx-auto"
+          >
+            <Eyebrow>What We Do</Eyebrow>
+            <Heading as="h2" className="mt-4">More Than Content.<br />We Create Experiences.</Heading>
+            <Body className="mt-6 text-muted-foreground max-w-xl mx-auto">Setiap proyek yang kami tangani bukan sekadar menghasilkan konten, melainkan menciptakan pengalaman yang bermakna bagi audiens dan kolaborator.</Body>
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{ duration: 0.7, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
+            className="grid md:grid-cols-2 lg:grid-cols-4 gap-6"
+          >
+            {whatWeDo.map((item, index) => (
+              <motion.article
+                key={item.title}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6, delay: 0.15 + index * 0.08, ease: [0.16, 1, 0.3, 1] }}
+                className="group p-6 lg:p-8 rounded-2xl border border-border/50 bg-surface transition-all duration-500 hover:border-accent/30 hover:shadow-[0_24px_48px_-12px_rgba(194,133,46,0.12)]"
+              >
+<div className="mb-5">
+  <span className="h-14 w-14 rounded-xl bg-accent/10 flex items-center justify-center text-accent">
+    <item.Icon />
+  </span>
+</div>
+                <Link
+                  href={item.href}
+                  className="block font-heading text-lg font-semibold text-foreground group-hover:text-accent transition-colors mb-3"
+                >
+                  {item.title}
+                </Link>
+                <Body className="text-muted-foreground text-sm leading-relaxed">
+                  {item.description}
+                </Body>
+              </motion.article>
+            ))}
+          </motion.div>
+        </div>
+      </section>
+
+      {/* Our Values - Minimalist */}
+      <section className="border-y border-border/50 bg-surface/30" style={{ paddingTop: "var(--section-gap)", paddingBottom: "var(--section-gap)" }}>
+        <div className="max-w-[var(--container-max)] mx-auto px-6">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+            className="text-center mb-16 lg:mb-20 max-w-3xl mx-auto"
+          >
+            <Eyebrow>Values</Eyebrow>
+            <Heading as="h2" className="mt-4">Our Values</Heading>
+            <Body className="mt-6 text-muted-foreground max-w-xl mx-auto">Prinsip-prinsip yang memandu setiap keputusan, kolaborasi, dan karya yang kami hasilkan.</Body>
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{ duration: 0.7, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
+            className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-5xl mx-auto"
+          >
+            {values.map((value, index) => (
+              <motion.article
+                key={value.title}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6, delay: 0.15 + index * 0.08, ease: [0.16, 1, 0.3, 1] }}
+                className="p-6 lg:p-8 rounded-2xl border border-border/50 bg-surface hover:border-accent/20 transition-all duration-500"
+              >
+                <div className="flex items-center gap-3 mb-4">
+                  <span className="h-10 w-10 rounded-full bg-accent/10 flex items-center justify-center text-accent font-bold text-sm font-mono">
+                    {value.title.charAt(0)}
+                  </span>
+                  <h3 className="font-heading text-base font-semibold text-foreground">
+                    {value.title}
+                  </h3>
+                </div>
+                <Body className="text-muted-foreground text-sm leading-relaxed">
+                  {value.body}
+                </Body>
+              </motion.article>
+            ))}
+          </motion.div>
+        </div>
+      </section>
+
+      {/* The Team - Editorial Grid */}
+      <section style={{ paddingTop: "var(--section-gap)", paddingBottom: "var(--section-gap)" }}>
+        <div className="max-w-[var(--container-max)] mx-auto px-6">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+            className="text-center mb-16 lg:mb-20 max-w-3xl mx-auto"
+          >
+            <Eyebrow>The Team</Eyebrow>
+            <Heading as="h2" className="mt-4">The People Behind KELL.</Heading>
+            <Body className="mt-6 text-muted-foreground max-w-xl mx-auto">Kami dibangun oleh individu-individu yang berbagi visi: menciptakan ruang kreatif yang bermakna untuk generasi muda.</Body>
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{ duration: 0.7, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
+            className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-6xl mx-auto"
+          >
+            {teamMembers.map((member, index) => (
+              <motion.article
+                key={member.id}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6, delay: 0.15 + index * 0.08, ease: [0.16, 1, 0.3, 1] }}
+                className="group p-6 rounded-2xl border border-border/50 bg-surface hover:border-accent/20 transition-all duration-500"
+              >
+                <div className="relative aspect-square rounded-xl overflow-hidden mb-5">
+                  <EditorialImage
+                    src={member.image}
+                    alt={member.name}
+                    ratio="1/1"
+                    className="object-cover transition-transform duration-700 group-hover:scale-105"
+                  />
+                </div>
+                <div className="space-y-2">
+                  <h3 className="font-heading text-base font-semibold text-foreground">
+                    {member.name}
+                  </h3>
+                  <p className="text-accent text-sm font-medium uppercase tracking-wider">
+                    {member.role}
+                  </p>
+                  <Body className="text-muted-foreground text-sm leading-relaxed">
+                    {member.bio}
+                  </Body>
+                </div>
+              </motion.article>
+            ))}
+          </motion.div>
+        </div>
+      </section>
+
+      {/* Creative Philosophy - Minimalist Accent */}
+      <section style={{ paddingTop: "var(--section-gap)", paddingBottom: "var(--section-gap)" }}>
+        <div className="max-w-[var(--container-max)] mx-auto px-6">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+            className="text-center mb-16 lg:mb-20 max-w-3xl mx-auto"
+          >
+            <Eyebrow>Philosophy</Eyebrow>
+            <Heading as="h2" className="mt-4">Creative Philosophy</Heading>
+          </motion.div>
+
+          <motion.ul
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{ duration: 0.7, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
+            className="max-w-2xl mx-auto space-y-8"
+          >
+            {philosophy.map((line, i) => (
+              <motion.li
+                key={i}
+                initial={{ opacity: 0, x: -30 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6, delay: i * 0.1, ease: [0.16, 1, 0.3, 1] }}
+                className="relative pl-10 text-lg text-muted-foreground leading-relaxed block"
+              >
+                <span className="absolute left-0 top-0.5 h-4 w-0.5 bg-accent" />
+                {line}
+              </motion.li>
+            ))}
+          </motion.ul>
+        </div>
+      </section>
+
+      {/* Closing Statement - Cinematic */}
+      <section className="border-y border-border/50 bg-surface/30 relative overflow-hidden" style={{ paddingTop: "calc(var(--section-gap) * 1.5)", paddingBottom: "calc(var(--section-gap) * 1.5)" }}>
+        <div className="absolute inset-0 -z-10">
+          <div className="w-[600px] h-[600px] rounded-full bg-accent/5 blur-[120px] -top-20 -left-20" />
+          <div className="w-[500px] h-[500px] rounded-full bg-accent/3 blur-[100px] -bottom-20 -right-20" />
+        </div>
+
+        <div className="max-w-[var(--container-max)] mx-auto px-6">
+          <div className="max-w-3xl mx-auto text-center">
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-100px" }}
+              transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+              className="space-y-6 mb-10"
+            >
+              <Eyebrow>Origin</Eyebrow>
+              <Heading as="h2">Every Great Story Starts Somewhere.</Heading>
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-100px" }}
+              transition={{ duration: 0.7, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
+              className="space-y-4 text-muted-foreground max-w-xl mx-auto mb-10"
+            >
+              <Body>KELL Entertainment mungkin berawal dari sekumpulan anak muda dengan ide dan keinginan yang sama. Namun, kami percaya bahwa sesuatu yang besar dapat dimulai dari langkah sederhana.</Body>
+              <Body>Kami tidak hanya ingin membuat konten. Kami ingin membangun ruang tempat ide bertemu, cerita tercipta, dan karya mendapatkan panggungnya.</Body>
+            </motion.div>
+
+            <motion.p
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-100px" }}
+              transition={{ duration: 0.7, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
+              className="font-heading text-xl font-semibold tracking-tight text-foreground mb-4"
+            >
+              This is KELL Entertainment. This is where our stories begin.
+            </motion.p>
+            <motion.p
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              viewport={{ once: true, margin: "-100px" }}
+              transition={{ duration: 0.7, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
+              className="text-sm font-mono text-muted-foreground/60 uppercase tracking-wider mb-12"
+            >
+              Founded on October 20, 2026.
+            </motion.p>
+
+            {/* Collaboration CTA */}
+            <motion.div
+              initial={{ opacity: 0, y: 30, scale: 0.98 }}
+              whileInView={{ opacity: 1, y: 0, scale: 1 }}
+              viewport={{ once: true, margin: "-100px" }}
+              transition={{ duration: 0.7, delay: 0.4, ease: [0.16, 1, 0.3, 1] }}
+              className="py-16 lg:py-20 rounded-2xl border border-accent/20 bg-accent/5 text-center backdrop-blur-xl"
+              style={{
+                background: "rgba(9, 9, 11, 0.4)",
+                borderColor: "rgba(194, 133, 46, 0.2)",
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.borderColor = "rgba(194,133,46,0.5)"
+                e.currentTarget.style.boxShadow = "0 24px 48px -12px rgba(194,133,46,0.15)"
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.borderColor = "rgba(194,133,46,0.2)"
+                e.currentTarget.style.boxShadow = "none"
+              }}
+            >
+              <Heading as="h2" className="mb-4">Let&rsquo;s make something.</Heading>
+              <Body className="text-muted-foreground mb-10 max-w-md mx-auto leading-relaxed">
+                We are selective about the projects we take on. Reach out with your idea and we will respond when we can give it proper attention.
+              </Body>
+              <Link
+                href="/contact"
+                className="inline-flex shrink-0 items-center justify-center rounded-sm border bg-clip-padding text-xs/relaxed font-medium whitespace-nowrap transition-all outline-none select-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 uppercase tracking-wider border-transparent bg-accent text-accent-foreground hover:bg-accent-hover hover:shadow-lg hover:shadow-accent/30 active:bg-accent-deep h-11 px-6 text-base w-full sm:w-auto group"
+                style={{ transition: "all 300ms cubic-bezier(0.16, 1, 0.3, 1)" }}
+                onMouseEnter={(e) => e.currentTarget.style.transform = "translateY(-2px)"}
+                onMouseLeave={(e) => e.currentTarget.style.transform = "translateY(0)"}
+              >
+                Contact Us
+                <motion.span
+                  className="ml-2 inline-block"
+                  initial={{ x: 0 }}
+                  whileHover={{ x: 4 }}
+                  transition={{ type: "spring", stiffness: 400, damping: 17 }}
+                >
+                  →
+                </motion.span>
+              </Link>
+            </motion.div>
+          </div>
         </div>
       </section>
     </div>

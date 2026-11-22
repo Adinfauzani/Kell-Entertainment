@@ -32,7 +32,7 @@ No test runner or typecheck script is configured. `next build` type-checks durin
 
 - shadcn initialized with `--preset base-mira --template next --rtl --pointer`. Components live under `components/ui/`, utils in `lib/utils.ts`.
 - Import aliases from `components.json`: `@/components`, `@/lib/utils`, `@/ui`, `@/hooks`.
-- Primitives come from **`@base-ui/react`** (not radix-ui). `lib/utils.ts` re-exports `cn` from the `cn` package — use `import { cn } from "@/lib/utils"` for className merging.
+- Primitives come from **`@radix-ui/themes`** (not `@base-ui/react` or radix-ui primitives). `lib/utils.ts` re-exports `cn` from the `cn` package — use `import { cn } from "@/lib/utils"` for className merging.
 - `app/globals.css` uses Tailwind v4 `@theme inline` + `@apply`; dark mode via `.dark` class (not `prefers-color-scheme` media query — the old media rule was replaced by `@custom-variant dark`).
 - `@animate-ui/react` and `motion` are installed. Use `npx @animate-ui/cli@latest animate <component>` to swap shadcn primitives for Animate UI primitives.
 
@@ -41,3 +41,5 @@ No test runner or typecheck script is configured. `next build` type-checks durin
 - `next-env.d.ts` is auto-generated; do not edit.
 - `.next/`, `out/`, `build/`, `node_modules` are git-ignored.
 - `package.json` declares `ignoreScripts` for `sharp` and `unrs-resolver` — bun install may skip their postinstall hooks.
+- README.md uses `npm` commands but the project uses **bun** — prefer `bun run <script>`.
+- `shadcn` in `dependencies` is the CLI scaffolding tool, not a runtime dependency.

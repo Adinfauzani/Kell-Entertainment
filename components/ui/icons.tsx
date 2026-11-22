@@ -1,4 +1,5 @@
 import * as React from "react"
+import { Mic, Film, Camera, Users } from "lucide-react"
 
 export function PlayIcon(props: React.SVGProps<SVGSVGElement>) {
   return (
@@ -18,3 +19,19 @@ export function PlayIcon(props: React.SVGProps<SVGSVGElement>) {
 }
 
 export const playIcon = <PlayIcon />
+
+export function PodcastIcon(props: React.SVGProps<SVGSVGElement>) {
+  return <Mic {...props} strokeWidth={1.5} size={24} />
+}
+
+export function VideoIcon(props: React.SVGProps<SVGSVGElement>) {
+  return <Film {...props} strokeWidth={1.5} size={24} />
+}
+
+export function MediaIcon(props: React.SVGProps<SVGSVGElement>) {
+  return <Camera {...props} strokeWidth={1.5} size={24} />
+}
+
+export function CollaborationIcon(props: React.SVGProps<SVGSVGElement>) {
+  return <Users {...props} strokeWidth={1.5} size={24} />
+}

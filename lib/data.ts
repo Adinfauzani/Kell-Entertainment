@@ -232,3 +232,87 @@ export const galleryCategories: { value: GalleryCategory; label: string }[] = [
   { value: "behind-the-scenes", label: "Behind the Scenes" },
   { value: "promotional", label: "Promotional Materials" },
 ]
+
+export interface TeamMember {
+  id: number
+  name: string
+  role: string
+  bio: string
+  image: string
+  socials?: { label: string; href: string }[]
+}
+
+export const teamMembers: TeamMember[] = [
+  {
+    id: 1,
+    name: "Tri Puspita",
+    role: "Eksekutif Produser",
+    bio: "Mengelola produksi end-to-end, memastikan setiap proyek berjalan tepat waktu dan sesuai visi kreatif.",
+    image: "/images/profile/EKSEKUTIF PRODUSER(TRI PUSPITA).jpeg",
+    socials: [
+      { label: "Instagram", href: "https://instagram.com/tripuspita" },
+      { label: "LinkedIn", href: "https://linkedin.com/in/tripuspita" },
+    ],
+  },
+  {
+    id: 2,
+    name: "Wawan Darmawan",
+    role: "Produser",
+    bio: "Mengkoordinasikan seluruh aspek produksi dari pre-production hingga pasca produksi dengan teliti.",
+    image: "/images/profile/PRODUSER(Wawan Darmawan).jpeg",
+    socials: [
+      { label: "Instagram", href: "https://instagram.com/wawandarmawan" },
+      { label: "LinkedIn", href: "https://linkedin.com/in/wawandarmawan" },
+    ],
+  },
+  {
+    id: 3,
+    name: "Yudittia Aldi",
+    role: "Creative Kell & Co-Host",
+    bio: "Memimpin visi kreatif KELL Entertainment dan menghadirkan perspektif segar di setiap episode podcast.",
+    image: "/images/profile/Creative kell , Co host, YUDITTIA(aldi).jpeg",
+    socials: [
+      { label: "Instagram", href: "https://instagram.com/yudittia" },
+    ],
+  },
+  {
+    id: 4,
+    name: "Rivaldo Sitorus",
+    role: "Host & Actor",
+    bio: "Aktor peran Anak Jalanan di Film LO JUAL GUE BELI KEMBALI, Raden Kian Santang di Season 2 Series ELEGI CINTA TIARA, dan Film LO JUAL GUE BELI KEMBALI.",
+    image: "/images/profile/HOST aktor RIVALDO SITORUS.jpeg",
+    socials: [
+      { label: "Instagram", href: "https://instagram.com/rivaldositorus" },
+    ],
+  },
+  {
+    id: 5,
+    name: "Kholbi Achshani",
+    role: "Co-Host",
+    bio: "Membawa energi dan perspektif unik di setiap percakapan podcast KELL Entertainment.",
+    image: "/images/profile/CO HOST (KHOLBI ACHSANI).jpeg",
+    socials: [
+      { label: "Instagram", href: "https://instagram.com/kholbi" },
+    ],
+  },
+  {
+    id: 6,
+    name: "Sony Wakwau",
+    role: "Co-Host",
+    bio: "Menghadirkan dinamika segar dan wawasan mendalam sebagai co-host podcast KELL.",
+    image: "/images/profile/CO HOST (SONY WAKWAU).jpeg",
+    socials: [
+      { label: "Instagram", href: "https://instagram.com/sony_wakwau" },
+    ],
+  },
+  {
+    id: 7,
+    name: "Joko Gusti Samudra",
+    role: "Co-Host",
+    bio: "Melengkapi tim host dengan gaya bicara khas dan ketertarikan pada cerita-cerita generasi muda.",
+    image: "/images/profile/JOKO GUSTI SAMUDRA CO HOST.jpeg",
+    socials: [
+      { label: "Instagram", href: "https://instagram.com/jokogusti" },
+    ],
+  },
+]
