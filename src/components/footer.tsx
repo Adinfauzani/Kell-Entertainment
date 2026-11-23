@@ -1,7 +1,6 @@
 "use client"
 
 import Link from "next/link"
-import { motion } from "motion/react"
 import Image from "next/image"
 import { Mail, Camera, Music, Video, X } from "lucide-react"
 import { site, navLinks, socials } from "@/lib/data"
@@ -25,7 +24,7 @@ const SocialIcon = ({ name, href, children }: { name: string; href: string; chil
     href={href}
     target="_blank"
     rel="noopener noreferrer"
-    className="flex h-10 w-10 items-center justify-center rounded-full bg-black/30 backdrop-blur-sm border border-white/10 text-muted-foreground hover:bg-accent/20 hover:border-accent/30 hover:text-accent transition-all duration-300"
+    className="flex h-10 w-10 items-center justify-center rounded-full bg-black/30 backdrop-blur-sm border border-white/10 text-muted-foreground hover:bg-accent/20 hover:border-accent/30 hover:text-accent transition-colors duration-300"
     aria-label={name}
   >
     {children}
@@ -60,28 +59,8 @@ const FooterColumnTitle = ({ children, id }: { children: React.ReactNode; id?: s
 export function Footer() {
   return (
     <footer className="relative border-t border-border/30 bg-background">
-      {/* Optional Cinematic Brand Statement */}
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, margin: "-50px" }}
-        transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-        className="px-6 py-8 border-b border-border/20"
-      >
-        <p className="mx-auto max-w-7xl text-center text-xs font-mono tracking-wide text-muted-foreground/60">
-          Creativity. Vision. Entertainment.
-        </p>
-      </motion.div>
-
-      {/* Main Footer Content */}
       <div className="mx-auto max-w-7xl px-6 py-16 lg:py-20">
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-100px" }}
-          transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-[1.5fr_1fr_1fr_1.2fr] gap-10 lg:gap-14"
-        >
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-[1.5fr_1fr_1fr_1.2fr] gap-10 lg:gap-14">
           {/* A. Brand Introduction */}
           <div className="space-y-8 lg:pr-8">
             <Link
@@ -90,11 +69,10 @@ export function Footer() {
               aria-label="KELL Entertainment"
             >
               {logoMark}
-              <span className="hidden lg:inline text-muted-foreground font-medium tracking-wide">Entertainment</span>
             </Link>
 
             <p className="text-base leading-relaxed text-muted-foreground max-w-xs">
-              Creating experiences through creative media, entertainment production, and visual storytelling.
+              Menciptakan pengalaman melalui media kreatif, produksi hiburan, dan bercerita visual.
             </p>
 
             <div className="flex items-center gap-3 pt-2">
@@ -110,8 +88,8 @@ export function Footer() {
           </div>
 
           {/* B. Navigation - Explore */}
-          <nav aria-label="Explore">
-            <FooterColumnTitle>Explore</FooterColumnTitle>
+          <nav aria-label="Jelajahi">
+            <FooterColumnTitle>Jelajahi</FooterColumnTitle>
             <ul className="space-y-4">
               {navLinks.map((link) => (
                 <li key={link.name}>
@@ -123,33 +101,29 @@ export function Footer() {
 
           {/* C. Services / Brand Focus - What We Do */}
           <section aria-labelledby="what-we-do">
-            <FooterColumnTitle id="what-we-do">What We Do</FooterColumnTitle>
+            <FooterColumnTitle id="what-we-do">Yang Kami Lakukan</FooterColumnTitle>
             <ul className="space-y-4">
-              <li><FooterLink href="/media?category=creative-projects">Creative Media</FooterLink></li>
-              <li><FooterLink href="/media?category=entertainment">Entertainment Production</FooterLink></li>
-              <li><FooterLink href="/media?category=creative-projects">Visual Storytelling</FooterLink></li>
-              <li><FooterLink href="/gallery">Digital Experiences</FooterLink></li>
+              <li><FooterLink href="/media?category=creative-projects">Media Kreatif</FooterLink></li>
+              <li><FooterLink href="/media?category=entertainment">Produksi Hiburan</FooterLink></li>
+              <li><FooterLink href="/media?category=creative-projects">Bercerita Visual</FooterLink></li>
+              <li><FooterLink href="/gallery">Pengalaman Digital</FooterLink></li>
             </ul>
           </section>
 
           {/* D. Contact - Get In Touch */}
           <section aria-labelledby="get-in-touch" className="space-y-6">
-            <FooterColumnTitle id="get-in-touch">Get In Touch</FooterColumnTitle>
+            <FooterColumnTitle id="get-in-touch">Hubungi Kami</FooterColumnTitle>
             <p className="text-sm leading-relaxed text-muted-foreground">
-              Have a project or creative collaboration in mind? Let&apos;s create something meaningful.
+              Ada proyek atau kolaborasi kreatif? Mari ciptakan sesuatu yang bermakna.
             </p>
             <Link
               href="/contact"
               className="inline-flex items-center gap-2 font-mono text-xs uppercase tracking-wider text-accent hover:text-accent-highlight transition-colors"
             >
-              Contact Us
-              <motion.span
-                initial={{ x: 0 }}
-                whileHover={{ x: 4 }}
-                transition={{ type: "spring", stiffness: 400, damping: 17 }}
-              >
+              Hubungi Kami
+              <span className="inline-block transition-transform group-hover:translate-x-1 group-hover:transition-transform">
                 →
-              </motion.span>
+              </span>
             </Link>
             <div className="pt-4 border-t border-border/30">
               <p className="text-xs font-mono text-muted-foreground/60">
@@ -157,24 +131,18 @@ export function Footer() {
               </p>
             </div>
           </section>
-        </motion.div>
+        </div>
 
         {/* Bottom Copyright Bar */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
-          className="mt-16 border-t border-border/30 pt-8"
-        >
+        <div className="mt-16 border-t border-border/30 pt-8">
           <div className="flex flex-col md:flex-row justify-between items-center gap-4 text-xs tracking-wider text-muted-foreground/70">
-            <p className="text-center md:text-left">© 2026 KELL Entertainment. All rights reserved.</p>
+            <p className="text-center md:text-left">© 2026 KELL Entertainment. Hak cipta dilindungi.</p>
             <nav aria-label="Legal" className="flex flex-wrap justify-center md:justify-end gap-6">
-              <FooterLink href="/privacy-policy">Privacy Policy</FooterLink>
-              <FooterLink href="/terms">Terms & Conditions</FooterLink>
+              <FooterLink href="/privacy-policy">Kebijakan Privasi</FooterLink>
+              <FooterLink href="/terms">Syarat & Ketentuan</FooterLink>
             </nav>
           </div>
-        </motion.div>
+        </div>
       </div>
     </footer>
   )

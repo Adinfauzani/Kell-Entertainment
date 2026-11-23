@@ -75,7 +75,7 @@ export function GalleryGrid({ items }: GalleryGridProps) {
         ))}
         {items.length === 0 && (
           <div className="col-span-full text-center py-20">
-            <p className="text-muted-foreground">No images in this category.</p>
+            <p className="text-muted-foreground">Tidak ada gambar di kategori ini.</p>
           </div>
         )}
       </div>

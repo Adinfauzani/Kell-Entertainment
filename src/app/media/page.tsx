@@ -29,7 +29,7 @@ export default function MediaPage() {
               <Eyebrow>Media</Eyebrow>
               <Heading as="h1">Media</Heading>
               <Body className="text-lg text-muted-foreground">
-                Publications, releases, and stories from the KELL catalog.
+                Publikasi, rilis, dan cerita dari katalog KELL.
               </Body>
             </div>
           </div>
@@ -37,7 +37,7 @@ export default function MediaPage() {
           <div className="mb-12">
             <Tabs defaultValue="all">
               <TabsList>
-                <TabsTrigger value="all">All categories</TabsTrigger>
+                <TabsTrigger value="all">Semua kategori</TabsTrigger>
                 {mediaCategories.map((c) => (
                   <TabsTrigger key={c.value} value={c.value}>
                     {c.label}

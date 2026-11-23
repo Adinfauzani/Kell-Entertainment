@@ -22,10 +22,10 @@ import {
 } from "@/components/ui/typography"
 
 const CATEGORIES = [
-  { value: "general", label: "General Inquiry" },
-  { value: "collaboration", label: "Business Collaboration" },
-  { value: "media", label: "Media Inquiry" },
-  { value: "other", label: "Other" },
+  { value: "general", label: "Pertanyaan Umum" },
+  { value: "collaboration", label: "Kolaborasi Bisnis" },
+  { value: "media", label: "Pertanyaan Media" },
+  { value: "other", label: "Lainnya" },
 ] as const
 
 type FormData = {
@@ -129,8 +129,8 @@ export default function Contact() {
       setSubmitting(false)
       setDialogOpen(true)
       toast({
-        title: "Message sent",
-        description: "Thank you for reaching out. We will get back to you shortly.",
+        title: "Pesan terkirim",
+        description: "Terima kasih telah menghubungi. Kami akan segera merespons.",
         variant: "success",
       })
       setFormData({ fullName: "", email: "", subject: "", category: "", message: "" })
@@ -151,12 +151,11 @@ export default function Contact() {
           <div className="grid lg:grid-cols-2 gap-12">
             <div className="space-y-8">
               <div>
-                <TypographyHeading as="h1" className="text-4xl font-bold tracking-tight">
-                  Contact
-                </TypographyHeading>
+                  <TypographyHeading as="h1" className="text-4xl font-bold tracking-tight">
+                    Kontak
+                  </TypographyHeading>
                 <TypographyBody className="mt-4 text-lg text-muted-foreground leading-relaxed">
-                  Get in touch for bookings, collaborations, media inquiries,
-                  or general questions.
+                  Hubungi kami untuk pemesanan, kolaborasi, pertanyaan media, atau pertanyaan umum.
                 </TypographyBody>
               </div>
 
@@ -223,16 +222,16 @@ export default function Contact() {
                     </svg>
                   </button>
                 </DialogClose>
-                <DialogTitle>Message Sent</DialogTitle>
+                <DialogTitle>Pesan Terkirim</DialogTitle>
                 <DialogDescription>
-                  Thank you for reaching out. We will get back to you shortly.
+                  Terima kasih telah menghubungi. Kami akan segera merespons.
                 </DialogDescription>
                 <Link
                   href="/"
                   onClick={() => setDialogOpen(false)}
                   className="inline-flex shrink-0 items-center justify-center rounded-sm border bg-clip-padding text-xs/relaxed font-medium whitespace-nowrap transition-all outline-none select-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 uppercase tracking-wider border-transparent bg-accent text-accent-foreground hover:bg-accent-hover hover:shadow-lg hover:shadow-accent/30 active:bg-accent-deep h-11 px-6 text-base w-full mt-6"
                 >
-                  Back to home
+                  Kembali ke beranda
                 </Link>
               </DialogContent>
             </Dialog>
@@ -244,7 +243,7 @@ export default function Contact() {
 
               <div className="grid md:grid-cols-2 gap-5">
                 <div className="space-y-2">
-                  <Label htmlFor="fullName">Full Name</Label>
+                    <Label htmlFor="fullName">Nama Lengkap</Label>
                   <Input
                     id="fullName"
                     name="fullName"
@@ -262,7 +261,7 @@ export default function Contact() {
                   )}
                 </div>
                 <div className="space-y-2">
-                  <Label htmlFor="email">Email Address</Label>
+                    <Label htmlFor="email">Alamat Email</Label>
                   <Input
                     id="email"
                     name="email"
@@ -283,7 +282,7 @@ export default function Contact() {
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="subject">Subject</Label>
+                    <Label htmlFor="subject">Subjek</Label>
                 <Input
                   id="subject"
                   name="subject"
@@ -302,7 +301,7 @@ export default function Contact() {
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="category">Inquiry Category</Label>
+                    <Label htmlFor="category">Kategori Pertanyaan</Label>
                 <Select
                   defaultValue=""
                   onValueChange={(v: unknown) =>
@@ -319,16 +318,16 @@ export default function Contact() {
                     }
                   >
                     <span className="text-muted-foreground line-clamp-1">
-                      Select a category
+                      Pilih kategori
                     </span>
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="general">General Inquiry</SelectItem>
+                    <SelectItem value="general">Pertanyaan Umum</SelectItem>
                     <SelectItem value="collaboration">
-                      Business Collaboration
+                      Kolaborasi Bisnis
                     </SelectItem>
-                    <SelectItem value="media">Media Inquiry</SelectItem>
-                    <SelectItem value="other">Other</SelectItem>
+                    <SelectItem value="media">Pertanyaan Media</SelectItem>
+                    <SelectItem value="other">Lainnya</SelectItem>
                   </SelectContent>
                 </Select>
                 {errors.category && (
@@ -337,12 +336,12 @@ export default function Contact() {
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="message">Message</Label>
+                    <Label htmlFor="message">Pesan</Label>
                 <textarea
                   id="message"
                   name="message"
                   rows={6}
-                  placeholder="Tell us about your project..."
+                  placeholder="Ceritakan tentang proyek Anda..."
                   value={formData.message}
                   onChange={handleChange}
                   required
@@ -362,7 +361,7 @@ export default function Contact() {
                   disabled={submitting}
                   className="w-full shadow-lg shadow-accent/25"
                 >
-                  {submitting ? "Sending…" : "Send Message"}
+                  {submitting ? "Mengirim…" : "Kirim Pesan"}
                 </Button>
               </div>
             </form>

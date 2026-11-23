@@ -47,83 +47,63 @@ export function Nav() {
     return () => window.removeEventListener("scroll", handleScroll)
   }, [handleScroll])
 
+  const desktopNavLinks = navLinks.filter((link) => link.name !== "Contact")
+
   return (
     <Drawer open={open} onOpenChange={setOpen}>
-      <motion.nav
+      <nav
         className={cn(
-          "fixed left-0 right-0 top-4 z-50 hidden justify-center px-6 md:flex",
-          "transition-all duration-500"
+          "fixed left-0 right-0 top-4 z-50 hidden md:flex justify-center px-6",
+          "transition-all duration-300"
         )}
-        initial={{ y: 0, opacity: 1 }}
-        animate={{ y: isVisible ? 0 : -120, opacity: isVisible ? 1 : 0 }}
-        transition={{ duration: 0.3, ease: "easeInOut" }}
       >
-        <motion.div
-          className={cn(
-            "mx-auto flex max-w-[920px] w-full items-center justify-between rounded-full px-6 py-2.5 transition-all duration-500",
+          <div
+            className={cn(
+              "mx-auto flex max-w-[70%] w-full items-center justify-between rounded-full px-6 py-2.5 transition-all duration-300",
             "bg-black/60 backdrop-blur-2xl border border-white/15 shadow-[0_4px_24px_-4px_rgba(0,0,0,0.3)]",
             scrolled && "py-2 shadow-[0_8px_32px_-8px_rgba(0,0,0,0.4)]"
           )}
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
         >
           <Link
             href="/"
             className="flex items-center gap-2 font-heading font-bold text-lg tracking-tight text-foreground"
-            style={{ transition: "all 300ms cubic-bezier(0.16, 1, 0.3, 1)" }}
-            onMouseEnter={(e) => e.currentTarget.style.transform = "translateY(-2px)"}
-            onMouseLeave={(e) => e.currentTarget.style.transform = "translateY(0)"}
             aria-label="KELL Entertainment"
           >
             {logoMark}
           </Link>
 
-          <motion.div
-            className="hidden md:flex items-center gap-1.5 text-xs font-mono font-medium tracking-wider"
-            initial={{ opacity: 0, y: -10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
-          >
-            {navLinks.filter((link) => link.name !== "Contact").map((link) => {
+          <div className="hidden md:flex items-center gap-1.5 text-xs font-mono font-medium tracking-wider">
+            {desktopNavLinks.map((link, index) => {
               const isActive = pathname === link.href
               return (
-                <motion.div
-                  key={link.name}
-                  initial={{ opacity: 0, y: -10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.4, delay: 0.25 }}
-                >
+                <div key={link.name}>
                   <Link
                     href={link.href}
                     className={cn(
-                      "relative inline-flex items-center gap-1 px-2.5 py-1.5 rounded-lg",
+                      "relative inline-flex items-center gap-1 px-3 py-2 rounded-lg",
                       isActive
                         ? "text-accent"
                         : "text-muted-foreground hover:text-foreground hover:bg-accent/10"
                     )}
-                    style={{ transition: "all 300ms cubic-bezier(0.16, 1, 0.3, 1)" }}
                     aria-current={isActive ? "page" : undefined}
                   >
                     {link.name}
                     {isActive && (
-                      <motion.span
-                        layoutId="nav-indicator"
-                        className="absolute bottom-0 left-1/2 -translate-x-1/2 h-0.5 w-6 bg-accent rounded-full"
-                        transition={{ type: "spring", stiffness: 400, damping: 17 }}
+                      <span
+                        className="absolute bottom-0 left-1/2 -translate-x-1/2 h-0.5 w-8 bg-accent rounded-full"
                       />
                     )}
                   </Link>
-                </motion.div>
+                </div>
               )
             })}
-          </motion.div>
+          </div>
 
           <div className="flex items-center gap-3 whitespace-nowrap">
             <Button
               variant="ghost"
               size="sm"
-              className="p-2 rounded-full hover:scale-105"
+              className="p-2 rounded-full"
               aria-label="Contact"
             >
               <Link href="/contact" className="inherit">
@@ -138,8 +118,8 @@ export function Nav() {
               {open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
             </DrawerTrigger>
           </div>
-        </motion.div>
-      </motion.nav>
+        </div>
+      </nav>
 
       <DrawerContent className="w-full sm:w-[280px] rounded-2xl border border-border bg-background/95 backdrop-blur-xl shadow-2xl bg-black/60 backdrop-blur-2xl border-white/15">
         <DrawerClose>
@@ -154,14 +134,14 @@ export function Nav() {
         </DrawerClose>
         <DrawerTitle className="mb-6 font-heading text-lg">Menu</DrawerTitle>
         <div className="p-4 space-y-1 overflow-y-auto scrollbar-hide">
-          {navLinks.map((link) => {
+          {navLinks.map((link, index) => {
             const isActive = pathname === link.href
             return (
               <motion.div
                 key={link.name}
                 initial={{ opacity: 0, x: -20 }}
                 animate={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.3, delay: 0.05 }}
+                transition={{ duration: 0.3, delay: 0.05 + index * 0.05 }}
               >
                 <Link
                   href={link.href}
@@ -172,7 +152,6 @@ export function Nav() {
                       ? "bg-accent/15 text-accent font-semibold"
                       : "text-muted-foreground hover:text-foreground hover:bg-accent/10"
                   )}
-                  style={{ transition: "all 300ms cubic-bezier(0.16, 1, 0.3, 1)" }}
                 >
                   {link.name}
                   {isActive && (

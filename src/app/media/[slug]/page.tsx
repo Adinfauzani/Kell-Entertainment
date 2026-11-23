@@ -58,7 +58,7 @@ export default function MediaDetail({ params }: { params: { slug: string } }) {
                   <span className="h-7 w-7 text-accent-foreground">{playIcon}</span>
                 </span>
                 <span className="text-accent font-semibold uppercase tracking-wider text-xs">
-                  Watch {item.title}
+                  Tonton {item.title}
                 </span>
               </div>
             </div>
@@ -78,10 +78,10 @@ export default function MediaDetail({ params }: { params: { slug: string } }) {
         <div className="max-w-7xl mx-auto">
           <div className="flex items-center justify-between mb-10">
             <Heading as="h2" className="text-3xl font-bold tracking-tight">
-              Related
+              Terkait
             </Heading>
             <Link href="/media" className="text-sm font-medium uppercase tracking-wider text-accent hover:underline">
-              All media
+              Semua media
             </Link>
           </div>
           <div className="grid md:grid-cols-3 gap-6">

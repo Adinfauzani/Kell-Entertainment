@@ -41,7 +41,7 @@ export function GalleryClient({ items }: GalleryClientProps) {
         ))}
         {items.length === 0 && (
           <div className="col-span-full text-center py-20">
-            <Caption>No images in this category.</Caption>
+            <Caption>Tidak ada gambar di kategori ini.</Caption>
           </div>
         )}
       </div>

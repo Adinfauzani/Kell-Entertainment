@@ -22,9 +22,9 @@ export default function GalleryPage() {
         <div className="max-w-7xl mx-auto">
           <div className="flex flex-col lg:flex-row gap-8 items-start lg:items-center justify-between mb-16">
             <div>
-              <Heading as="h1">Gallery</Heading>
+              <Heading as="h1">Galeri</Heading>
               <Body className="text-lg text-muted-foreground">
-                A visual record of projects, events, and moments from KELL
+                Catatan visual proyek, acara, dan momen dari KELL
                 Entertainment.
               </Body>
             </div>
@@ -35,7 +35,7 @@ export default function GalleryPage() {
               href={category === "all" ? "/gallery" : "/gallery?category=all"}
               className="rounded-sm border px-3 py-1 text-xs font-medium uppercase tracking-wider transition-colors"
             >
-              All
+              Semua
             </Link>
             {galleryCategories.map((c) => {
               const active = category === c.value

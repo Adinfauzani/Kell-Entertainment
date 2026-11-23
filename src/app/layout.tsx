@@ -1,6 +1,6 @@
 import type { Metadata } from "next"
 import { Plus_Jakarta_Sans } from "next/font/google"
-import { Fredoka } from "next/font/google"
+import { Roboto, JetBrains_Mono } from "next/font/google"
 import { Theme } from "@radix-ui/themes"
 import "./globals.css"
 import { Nav } from "@/components/nav"
@@ -12,22 +12,26 @@ const plusJakarta = Plus_Jakarta_Sans({
   weight: ["300", "400", "500", "600", "700"],
 })
 
-const fredoka = Fredoka({
-  variable: "--font-fredoka",
+const roboto = Roboto({
   subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
+  variable: "--font-roboto",
+})
+
+const jetbrainsMono = JetBrains_Mono({
+  subsets: ["latin"],
+  variable: "--font-jetbrains-mono",
 })
 
 export const metadata: Metadata = {
   title: {
     template: "%s — KELL Entertainment",
-    default: "KELL Entertainment — Creative Media & Entertainment",
+    default: "KELL Entertainment — Media Kreatif & Hiburan",
   },
   description:
-    "Discover KELL Entertainment, a creative entertainment brand showcasing media, visual storytelling, creative projects, and digital experiences.",
+    "Temukan KELL Entertainment, brand hiburan kreatif yang menampilkan media, bercerita visual, proyek kreatif, dan pengalaman digital.",
   openGraph: {
     siteName: "KELL Entertainment",
-    title: "KELL Entertainment — Creative Media & Entertainment",
+    title: "KELL Entertainment — Media Kreatif & Hiburan",
     description:
       "Discover KELL Entertainment, a creative entertainment brand showcasing media, visual storytelling, creative projects, and digital experiences.",
     type: "website",
@@ -39,10 +43,7 @@ export default function RootLayout({
   children,
 }: React.PropsWithChildren) {
   return (
-    <html
-      lang="en"
-      className={`${plusJakarta.variable} ${fredoka.variable} h-full antialiased`}
-    >
+    <html lang="id" className={`${plusJakarta.variable} ${roboto.variable} ${jetbrainsMono.variable} h-full antialiased`}>
       <body className="min-h-full flex flex-col">
         <Theme accentColor="gold" grayColor="slate" radius="medium" scaling="100%" appearance="dark">
           <Nav />

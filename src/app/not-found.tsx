@@ -13,17 +13,17 @@ export default function NotFound() {
           <span className="text-6xl font-bold">404</span>
         </div>
         <h1 className="font-heading text-5xl font-bold tracking-tight mb-6">
-          Not Found
+          Halaman Tidak Ditemukan
         </h1>
         <p className="text-lg text-muted-foreground mb-10 leading-relaxed">
-          The page you are looking for does not exist. It may have been moved
-          or removed.
+          Halaman yang Anda cari tidak ada. Mungkin telah dipindahkan
+          atau dihapus.
         </p>
         <Link
           href="/"
           className="inline-flex shrink-0 items-center justify-center rounded-sm border bg-clip-padding text-xs/relaxed font-medium whitespace-nowrap transition-all outline-none select-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 uppercase tracking-wider border-transparent bg-accent text-accent-foreground hover:bg-accent-hover hover:shadow-lg hover:shadow-accent/30 active:bg-accent-deep h-11 px-6 text-base w-full"
         >
-          Return home
+          Kembali ke beranda
         </Link>
       </div>
     </div>

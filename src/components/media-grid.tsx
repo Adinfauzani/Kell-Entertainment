@@ -72,7 +72,7 @@ export function MediaGrid({ items }: MediaGridProps) {
         ))}
         {items.length === 0 && (
           <div className="col-span-full text-center py-20">
-            <p className="text-muted-foreground">No media found.</p>
+            <p className="text-muted-foreground">Tidak ada media ditemukan.</p>
           </div>
         )}
       </div>
