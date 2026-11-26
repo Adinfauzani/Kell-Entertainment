@@ -279,7 +279,7 @@ export const teamMembers: TeamMember[] = [
     id: 4,
     name: "Rivaldo Sitorus",
     role: "Host & Actor",
-    bio: "Berperan sebagai Aktor Anak Jalanan dalam film Lo Jual Gue Beli Kembali, serta memerankan Raden Kian Santang dalam Season 2 serial ElegI Cinta Tiara.",
+    bio: "Bermain film anak jalanan dalam film Lo Jual Gue Beli Kembali berperan sebagai Topan, serta Raden Kian Santang Season 2 sebagai senopati kerajaan kangit dan serial ElegI Cinta Tiara sebagai gilang.",
     image: "/images/profile/HOST aktor RIVALDO SITORUS.jpeg",
     socials: [
       { label: "Instagram", href: "https://instagram.com/rivaldositorus" },
