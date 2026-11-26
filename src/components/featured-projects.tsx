@@ -60,8 +60,8 @@ export default async function FeaturedProjects() {
                 <Heading as="h3" className="text-xl font-semibold text-foreground group-hover:text-accent transition-colors line-clamp-3">
                   {featured.title}
                 </Heading>
-                <Body className="text-muted-foreground text-sm mt-4 leading-relaxed">
-                  Tonton video terbaru dari channel YouTube KELL Entertainment.
+                <Body className="text-muted-foreground text-sm mt-4 leading-relaxed line-clamp-4">
+                  {featured.description || "Tonton video terbaru dari channel YouTube KELL Entertainment."}
                 </Body>
               </CardContent>
             </div>

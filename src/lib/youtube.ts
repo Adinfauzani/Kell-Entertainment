@@ -4,6 +4,7 @@ const YOUTUBE_CHANNEL_ID = process.env.YOUTUBE_CHANNEL_ID
 export interface YouTubeVideo {
   id: string
   title: string
+  description: string
   thumbnail: string
   publishedAt: string
 }
@@ -51,6 +52,7 @@ export async function getLatestVideos(maxResults = 5): Promise<YouTubeVideo[]> {
     return items.slice(0, maxResults).map((item: any) => ({
       id: item.id.videoId,
       title: item.snippet.title,
+      description: item.snippet.description,
       thumbnail: item.snippet.thumbnails?.medium?.url || item.snippet.thumbnails?.default?.url,
       publishedAt: item.snippet.publishedAt,
     }))
@@ -68,6 +70,7 @@ export async function getLatestVideos(maxResults = 5): Promise<YouTubeVideo[]> {
     .map((item: any) => ({
       id: item.id.videoId,
       title: item.snippet.title,
+      description: item.snippet.description,
       thumbnail: item.snippet.thumbnails?.medium?.url || item.snippet.thumbnails?.default?.url,
       publishedAt: item.snippet.publishedAt,
     }))
