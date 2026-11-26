@@ -17,7 +17,7 @@ function parseDuration(iso: string): number {
   return hours * 3600 + minutes * 60 + seconds
 }
 
-export async function getLatestVideos(maxResults = 3): Promise<YouTubeVideo[]> {
+export async function getLatestVideos(maxResults = 5): Promise<YouTubeVideo[]> {
   "use cache"
   if (!YOUTUBE_API_KEY || !YOUTUBE_CHANNEL_ID) {
     return []
