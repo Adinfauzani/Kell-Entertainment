@@ -95,12 +95,10 @@ export default function Home() {
                 <HeroImage
                   src="/images/galerry/salsabila.jpeg"
                   alt="KELL Entertainment creative studio"
-                  className="w-full h-auto object-contain block rounded-xl border border-border/30 shadow-[0_40px_80px_-20px_rgba(0,0,0,0.4)]"
+                  className="w-full aspect-[4/3] object-cover rounded-xl border border-border/30 shadow-[0_40px_80px_-20px_rgba(0,0,0,0.4)]"
                   priority
-                  fill={false}
-                  width={666}
-                  height={375}
-                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 70vw, 55vw"
+                  fill={true}
+                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 40vw"
                 />
               </motion.div>
             </div>
@@ -206,7 +204,7 @@ export default function Home() {
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
-            className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto"
+            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto"
           >
             {teamMembers.map((member, index) => (
               <motion.div
